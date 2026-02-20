@@ -1,0 +1,24 @@
+{
+  "name": [
+    "Juan Pablo"
+  ],
+  "Lastname": [
+    "Dominguez",
+    "Sarmiento"
+  ],
+  "Location": [
+    "V. Hermosa"
+  ],
+  "birthdate": {
+    "day": 30,
+    "mount": 4,
+    "year": 2009
+  },
+  "friends": [
+    "uriel bian"
+  ],
+  "member description": [
+    "Letra: B, Num: 2, Description: Constructor MQL. Traduce las preguntas de negocio ('¿Cuántos usuarios...?') a código MongoDB (db.collection.find(...)). Es quien más interactúa con la IA para optimizar filtros."
+  ]
+}
+
