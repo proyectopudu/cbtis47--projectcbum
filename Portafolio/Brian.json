@@ -1,0 +1,26 @@
+{
+
+"name":[
+  "Uriel"
+],
+  "Lastname" :[
+    "Martínez",
+    "Bian"
+  ],
+  "Location" :[
+    "Los lienzos 2"
+  ],
+      
+  "birthdate":{
+   "day":23,
+   "mount":07,
+    "year": 2009
+  },
+  "friends":[
+    "Pablo Dominguez",
+    "xxxxxx"
+  ],
+   "member description":[
+    "Chaos Generator. Creates test data (dummy JSON files) using AI tools or Mockaroo. Validates that the Developer's queries work with real data and reports bugs."
+   ]
+}
