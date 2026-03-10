@@ -1,0 +1,38 @@
+{
+  "name": "Rock Festival 2026",
+  "date": "2026-05-10T20:00:00Z",
+  "venue": "Madison Square Garden",
+  "location": {
+    "city": "New York",
+    "country": "USA"
+  },
+  "zones": [
+    {
+      "zone_id": "z1",
+      "name": "VIP",
+      "total_capacity": 50,
+      "available_capacity": 50,
+      "ticket_types": [
+        {
+          "ticket_type_id": "tt1",
+          "type_name": "Full Experience",
+          "cost": 200
+        }
+      ]
+    },
+    {
+      "zone_id": "z2",
+      "name": "Backstage",
+      "total_capacity": 10,
+      "available_capacity": 10,
+      "ticket_types": [
+        {
+          "ticket_type_id": "tt2",
+          "type_name": "Ultra VIP",
+          "cost": 500
+        }
+      ]
+    }
+  ],
+  "attendees": []
+}
