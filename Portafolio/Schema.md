@@ -1,4 +1,4 @@
-'mermaid'
+
 erDiagram
     CONCERT {
         string concert_id PK
