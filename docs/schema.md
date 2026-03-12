@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
     CONCERT {
         string concert_id PK
@@ -42,5 +43,8 @@ erDiagram
     ZONE ||--o{ TICKET_TYPE : offers
     TICKET_TYPE ||--o{ TICKET : generates
     CONCERT ||--o{ TICKET : includes
+
+```
     ZONE ||--o{ TICKET : belongs_to
+
     ATTENDEE ||--o{ TICKET : purchases
