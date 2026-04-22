@@ -1,37 +1,50 @@
 {
-  "name": "Rock Festival 2026",
-  "date": "2026-05-10T20:00:00Z",
-  "venue": "Madison Square Garden",
-  "location": {
-    "city": "New York",
-    "country": "USA"
+  "concert": {
+    "concert_id": "c1",
+    "name": "Rock Festival 2026",
+    "date": "2026-05-10T20:00:00Z",
+    "location": "Madison Square Garden, New York, USA"
   },
+  "schedules": [
+    {
+      "schedule_id": "s1",
+      "activity_name": "Apertura de puertas",
+      "start_time": "18:00:00",
+      "end_time": "19:00:00"
+    },
+    {
+      "schedule_id": "s2",
+      "activity_name": "Show Principal",
+      "start_time": "20:00:00",
+      "end_time": "23:00:00"
+    }
+  ],
   "zones": [
     {
       "zone_id": "z1",
       "name": "VIP",
-      "total_capacity": 50,
-      "available_capacity": 50,
-      "ticket_types": [
-        {
-          "ticket_type_id": "tt1",
-          "type_name": "Full Experience",
-          "cost": 200
-        }
-      ]
+      "total_capacity": 50
     },
     {
       "zone_id": "z2",
       "name": "Backstage",
-      "total_capacity": 10,
-      "available_capacity": 10,
-      "ticket_types": [
-        {
-          "ticket_type_id": "tt2",
-          "type_name": "Ultra VIP",
-          "cost": 500
-        }
-      ]
+      "total_capacity": 10
+    }
+  ],
+  "ticket_types": [
+    {
+      "ticket_type_id": "tt1",
+      "zone_id": "z1",
+      "type_name": "Full Experience",
+      "current_price": 200,
+      "description": "Acceso total a zona VIP"
+    },
+    {
+      "ticket_type_id": "tt2",
+      "zone_id": "z2",
+      "type_name": "Ultra VIP",
+      "current_price": 500,
+      "description": "Acceso exclusivo a Backstage"
     }
   ],
   "attendees": []
