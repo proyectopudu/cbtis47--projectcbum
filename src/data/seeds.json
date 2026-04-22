@@ -1,4 +1,4 @@
-//concierto
+//concierto//
 
 {
   "concerts": [
@@ -10,7 +10,7 @@
     }
   ],
 
-  //Horarios
+  //Horarios//
   "schedules": [
     { "schedule_id": "s1", "concert_id": "c1", "activity_name": "Apertura", "start_time": "18:00", "end_time": "19:00" },
     { "schedule_id": "s2", "concert_id": "c1", "activity_name": "Telonero A", "start_time": "19:00", "end_time": "19:45" },
@@ -19,32 +19,33 @@
     { "schedule_id": "s5", "concert_id": "c1", "activity_name": "Cierre", "start_time": "23:30", "end_time": "00:00" }
   ],
 
-  //Zonas
+  //Zonas//
   "zones": [
     { "zone_id": "z1", "concert_id": "c1", "name": "VIP", "total_capacity": 50 },
     { "zone_id": "z2", "concert_id": "c1", "name": "Backstage", "total_capacity": 10 }
   ],
 
-  //Typo de ticket
+  //Tipo de ticket//
   "ticket_types": [
     { "ticket_type_id": "tt1", "zone_id": "z1", "type_name": "Full Experience", "description": "Acceso VIP" },
     { "ticket_type_id": "tt2", "zone_id": "z2", "type_name": "Ultra VIP", "description": "Meet & Greet" }
   ],
 
-  //precio
+  //precio//
   "price_logs": [
     { "price_id": "p1", "ticket_type_id": "tt1", "amount": 180, "valid_from": "2026-01-01", "valid_to": "2026-02-28" },
     { "price_id": "p2", "ticket_type_id": "tt1", "amount": 200, "valid_from": "2026-03-01", "valid_to": "2026-05-10" },
     { "price_id": "p3", "ticket_type_id": "tt2", "amount": 500, "valid_from": "2026-01-01", "valid_to": "2026-05-10" }
   ],
 
-  
+  //Metodo de pago//
   "payment_methods": [
     { "method_id": "pm1", "method_name": "Credit Card", "provider": "Stripe" },
     { "method_id": "pm2", "method_name": "Digital Wallet", "provider": "PayPal" }
   ],
 
-  
+
+  //Usuarios//
   "attendees": [
     { "attendee_id": "a1", "name": "Alice J.", "email": "alice@mail.com" },
     { "attendee_id": "a2", "name": "Bob S.", "email": "bob@mail.com" },
@@ -59,6 +60,7 @@
   ],
 
   
+  //Transacciones//
   "transactions": [
     { "transaction_id": "tr1", "attendee_id": "a1", "method_id": "pm1", "total_amount": 200, "payment_date": "2026-04-10", "status": "COMPLETED" },
     { "transaction_id": "tr2", "attendee_id": "a2", "method_id": "pm2", "total_amount": 500, "payment_date": "2026-04-11", "status": "COMPLETED" },
@@ -68,6 +70,7 @@
   ],
 
   
+  //Tickets//
   "tickets": [
     { "ticket_id": "t1", "ticket_type_id": "tt1", "attendee_id": "a1", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": true },
     { "ticket_id": "t2", "ticket_type_id": "tt2", "attendee_id": "a2", "transaction_id": "tr2", "status": "ACTIVE", "has_food_access": true },
