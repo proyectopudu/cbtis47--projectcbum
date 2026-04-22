@@ -1,52 +1,83 @@
-[
-  { "ticket_id": "TICK-001", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U001", "name": "Carlos Méndez", "email": "carlos.mendez@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers", "Extra water"], "purchase_date": "2026-01-15T10:30:00Z" },
-  { "ticket_id": "TICK-002", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U002", "name": "Ana García", "email": "ana.garcia@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Wheelchair access"], "purchase_date": "2026-01-15T10:35:00Z" },
-  { "ticket_id": "TICK-003", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U003", "name": "Luis Rodríguez", "email": "luis.rodriguez@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Early entry"], "purchase_date": "2026-01-15T10:40:00Z" },
-  { "ticket_id": "TICK-004", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U004", "name": "Elena Pérez", "email": "elena.perez@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T10:45:00Z" },
-  { "ticket_id": "TICK-005", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U005", "name": "Marcos López", "email": "marcos.lopez@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Backstage pass physical copy", "Meet & Greet priority"], "purchase_date": "2026-01-15T11:00:00Z" },
-  { "ticket_id": "TICK-006", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U006", "name": "Sofía Torres", "email": "sofia.torres@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T11:05:00Z" },
-  { "ticket_id": "TICK-007", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U007", "name": "Diego Ruiz", "email": "diego.ruiz@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T11:10:00Z" },
-  { "ticket_id": "TICK-008", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U008", "name": "Lucía Castro", "email": "lucia.castro@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T11:15:00Z" },
-  { "ticket_id": "TICK-009", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U009", "name": "Javier Morales", "email": "javier.morales@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Vegetarian snack kit"], "purchase_date": "2026-01-15T11:20:00Z" },
-  { "ticket_id": "TICK-010", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U010", "name": "Valeria Ortiz", "email": "valeria.ortiz@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T11:25:00Z" },
-  { "ticket_id": "TICK-011", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U011", "name": "Andrés Silva", "email": "andres.silva@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T11:30:00Z" },
-  { "ticket_id": "TICK-012", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U012", "name": "Camila Ríos", "email": "camila.rios@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T11:35:00Z" },
-  { "ticket_id": "TICK-013", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U013", "name": "Ricardo Vega", "email": "ricardo.vega@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["VIP Parking"], "purchase_date": "2026-01-15T11:40:00Z" },
-  { "ticket_id": "TICK-014", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U014", "name": "Gabriela Luna", "email": "gabriela.luna@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T11:45:00Z" },
-  { "ticket_id": "TICK-015", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U015", "name": "Fernando Solís", "email": "fernando.solis@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Early entry"], "purchase_date": "2026-01-15T11:50:00Z" },
-  { "ticket_id": "TICK-016", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U016", "name": "Daniela Lara", "email": "daniela.lara@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T11:55:00Z" },
-  { "ticket_id": "TICK-017", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U017", "name": "Hugo Delgado", "email": "hugo.delgado@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Meet & Greet priority"], "purchase_date": "2026-01-15T12:00:00Z" },
-  { "ticket_id": "TICK-018", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U018", "name": "Beatriz Peña", "email": "beatriz.pena@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T12:05:00Z" },
-  { "ticket_id": "TICK-019", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U019", "name": "Roberto Cano", "email": "roberto.cano@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T12:10:00Z" },
-  { "ticket_id": "TICK-020", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U020", "name": "Mónica Soto", "email": "monica.soto@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T12:15:00Z" },
-  { "ticket_id": "TICK-021", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U021", "name": "Raúl Herrera", "email": "raul.herrera@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Vegetarian snack kit"], "purchase_date": "2026-01-15T12:20:00Z" },
-  { "ticket_id": "TICK-022", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U022", "name": "Patricia Ibarra", "email": "patricia.ibarra@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T12:25:00Z" },
-  { "ticket_id": "TICK-023", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U023", "name": "Oscar Navarro", "email": "oscar.navarro@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T12:30:00Z" },
-  { "ticket_id": "TICK-024", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U024", "name": "Natalia Flores", "email": "natalia.flores@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T12:35:00Z" },
-  { "ticket_id": "TICK-025", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U025", "name": "Sergio Guzmán", "email": "sergio.guzman@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["VIP Parking"], "purchase_date": "2026-01-15T12:40:00Z" },
-  { "ticket_id": "TICK-026", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U026", "name": "Isabel Méndez", "email": "isabel.mendez@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T12:45:00Z" },
-  { "ticket_id": "TICK-027", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U027", "name": "Felipe Rivas", "email": "felipe.rivas@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T12:50:00Z" },
-  { "ticket_id": "TICK-028", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U028", "name": "Lorena Paredes", "email": "lorena.paredes@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T12:55:00Z" },
-  { "ticket_id": "TICK-029", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U029", "name": "Miguel Durán", "email": "miguel.duran@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Meet & Greet priority"], "purchase_date": "2026-01-15T13:00:00Z" },
-  { "ticket_id": "TICK-030", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U030", "name": "Silvia Campos", "email": "silvia.campos@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T13:05:00Z" },
-  { "ticket_id": "TICK-031", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U031", "name": "Iván Salazar", "email": "ivan.salazar@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T13:10:00Z" },
-  { "ticket_id": "TICK-032", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U032", "name": "Andrea Valdés", "email": "andrea.valdes@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Wheelchair access"], "purchase_date": "2026-01-15T13:15:00Z" },
-  { "ticket_id": "TICK-033", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U033", "name": "Esteban Guerra", "email": "esteban.guerra@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Vegetarian snack kit"], "purchase_date": "2026-01-15T13:20:00Z" },
-  { "ticket_id": "TICK-034", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U034", "name": "Rosa Pineda", "email": "rosa.pineda@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T13:25:00Z" },
-  { "ticket_id": "TICK-035", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U035", "name": "Jorge Bernal", "email": "jorge.bernal@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T13:30:00Z" },
-  { "ticket_id": "TICK-036", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U036", "name": "Teresa Esparza", "email": "teresa.esparza@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T13:35:00Z" },
-  { "ticket_id": "TICK-037", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U037", "name": "Alejandro Mora", "email": "alejandro.mora@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["VIP Parking"], "purchase_date": "2026-01-15T13:40:00Z" },
-  { "ticket_id": "TICK-038", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U038", "name": "Verónica Leal", "email": "veronica.leal@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T13:45:00Z" },
-  { "ticket_id": "TICK-039", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U039", "name": "Mario Gallegos", "email": "mario.gallegos@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T13:50:00Z" },
-  { "ticket_id": "TICK-040", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U040", "name": "Blanca Aguirre", "email": "blanca.aguirre@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T13:55:00Z" },
-  { "ticket_id": "TICK-041", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U041", "name": "Héctor Orozco", "email": "hector.orozco@example.com" }, "access_details": { "zone_id": "z2", "ticket_type_id": "tt2" }, "special_requests": ["Meet & Greet priority"], "purchase_date": "2026-01-15T14:00:00Z" },
-  { "ticket_id": "TICK-042", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U042", "name": "Clara Montes", "email": "clara.montes@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T14:05:00Z" },
-  { "ticket_id": "TICK-043", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U043", "name": "Ramiro Esquivel", "email": "ramiro.esquivel@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T14:10:00Z" },
-  { "ticket_id": "TICK-044", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U044", "name": "Karla Tovar", "email": "karla.tovar@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T14:15:00Z" },
-  { "ticket_id": "TICK-045", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U045", "name": "Samuel Prieto", "email": "samuel.prieto@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T14:20:00Z" },
-  { "ticket_id": "TICK-046", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U046", "name": "Cristina Vaca", "email": "cristina.vaca@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T14:25:00Z" },
-  { "ticket_id": "TICK-047", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U047", "name": "Víctor Corona", "email": "victor.corona@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T14:30:00Z" },
-  { "ticket_id": "TICK-048", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U048", "name": "Pilar Benítez", "email": "pilar.benitez@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Near speakers"], "purchase_date": "2026-01-15T14:35:00Z" },
-  { "ticket_id": "TICK-049", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U049", "name": "Jordi Cruz", "email": "jordi.cruz@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": [], "purchase_date": "2026-01-15T14:40:00Z" },
-  { "ticket_id": "TICK-050", "event_id": "rock-fest-2026", "purchaser": { "user_id": "U050", "name": "Lourdes Saenz", "email": "lourdes.saenz@example.com" }, "access_details": { "zone_id": "z1", "ticket_type_id": "tt1" }, "special_requests": ["Extra water"], "purchase_date": "2026-01-15T14:45:00Z" }
-]
+//concierto
+
+{
+  "concerts": [
+    {
+      "concert_id": "c1",
+      "name": "Rock Festival 2026",
+      "date": "2026-05-10T20:00:00Z",
+      "location": "Madison Square Garden, New York, USA"
+    }
+  ],
+
+  //Horarios
+  "schedules": [
+    { "schedule_id": "s1", "concert_id": "c1", "activity_name": "Apertura", "start_time": "18:00", "end_time": "19:00" },
+    { "schedule_id": "s2", "concert_id": "c1", "activity_name": "Telonero A", "start_time": "19:00", "end_time": "19:45" },
+    { "schedule_id": "s3", "concert_id": "c1", "activity_name": "Telonero B", "start_time": "20:00", "end_time": "20:45" },
+    { "schedule_id": "s4", "concert_id": "c1", "activity_name": "Show Principal", "start_time": "21:15", "end_time": "23:30" },
+    { "schedule_id": "s5", "concert_id": "c1", "activity_name": "Cierre", "start_time": "23:30", "end_time": "00:00" }
+  ],
+
+  //Zonas
+  "zones": [
+    { "zone_id": "z1", "concert_id": "c1", "name": "VIP", "total_capacity": 50 },
+    { "zone_id": "z2", "concert_id": "c1", "name": "Backstage", "total_capacity": 10 }
+  ],
+
+  //Typo de ticket
+  "ticket_types": [
+    { "ticket_type_id": "tt1", "zone_id": "z1", "type_name": "Full Experience", "description": "Acceso VIP" },
+    { "ticket_type_id": "tt2", "zone_id": "z2", "type_name": "Ultra VIP", "description": "Meet & Greet" }
+  ],
+
+  //precio
+  "price_logs": [
+    { "price_id": "p1", "ticket_type_id": "tt1", "amount": 180, "valid_from": "2026-01-01", "valid_to": "2026-02-28" },
+    { "price_id": "p2", "ticket_type_id": "tt1", "amount": 200, "valid_from": "2026-03-01", "valid_to": "2026-05-10" },
+    { "price_id": "p3", "ticket_type_id": "tt2", "amount": 500, "valid_from": "2026-01-01", "valid_to": "2026-05-10" }
+  ],
+
+  
+  "payment_methods": [
+    { "method_id": "pm1", "method_name": "Credit Card", "provider": "Stripe" },
+    { "method_id": "pm2", "method_name": "Digital Wallet", "provider": "PayPal" }
+  ],
+
+  
+  "attendees": [
+    { "attendee_id": "a1", "name": "Alice J.", "email": "alice@mail.com" },
+    { "attendee_id": "a2", "name": "Bob S.", "email": "bob@mail.com" },
+    { "attendee_id": "a3", "name": "Charlie B.", "email": "charlie@mail.com" },
+    { "attendee_id": "a4", "name": "Diana P.", "email": "diana@mail.com" },
+    { "attendee_id": "a5", "name": "Edward N.", "email": "ed@mail.com" },
+    { "attendee_id": "a6", "name": "Fiona G.", "email": "fiona@mail.com" },
+    { "attendee_id": "a7", "name": "George M.", "email": "george@mail.com" },
+    { "attendee_id": "a8", "name": "Hannah A.", "email": "hannah@mail.com" },
+    { "attendee_id": "a9", "name": "Ian W.", "email": "ian@mail.com" },
+    { "attendee_id": "a10", "name": "Jane D.", "email": "jane@mail.com" }
+  ],
+
+  
+  "transactions": [
+    { "transaction_id": "tr1", "attendee_id": "a1", "method_id": "pm1", "total_amount": 200, "payment_date": "2026-04-10", "status": "COMPLETED" },
+    { "transaction_id": "tr2", "attendee_id": "a2", "method_id": "pm2", "total_amount": 500, "payment_date": "2026-04-11", "status": "COMPLETED" },
+    { "transaction_id": "tr3", "attendee_id": "a3", "method_id": "pm1", "total_amount": 200, "payment_date": "2026-04-12", "status": "COMPLETED" },
+    { "transaction_id": "tr4", "attendee_id": "a4", "method_id": "pm2", "total_amount": 200, "payment_date": "2026-04-12", "status": "COMPLETED" },
+    { "transaction_id": "tr5", "attendee_id": "a5", "method_id": "pm1", "total_amount": 500, "payment_date": "2026-04-13", "status": "COMPLETED" }
+  ],
+
+  
+  "tickets": [
+    { "ticket_id": "t1", "ticket_type_id": "tt1", "attendee_id": "a1", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t2", "ticket_type_id": "tt2", "attendee_id": "a2", "transaction_id": "tr2", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t3", "ticket_type_id": "tt1", "attendee_id": "a3", "transaction_id": "tr3", "status": "ACTIVE", "has_food_access": false },
+    { "ticket_id": "t4", "ticket_type_id": "tt1", "attendee_id": "a4", "transaction_id": "tr4", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t5", "ticket_type_id": "tt2", "attendee_id": "a5", "transaction_id": "tr5", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t6", "ticket_type_id": "tt1", "attendee_id": "a6", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": false },
+    { "ticket_id": "t7", "ticket_type_id": "tt1", "attendee_id": "a7", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t8", "ticket_type_id": "tt1", "attendee_id": "a8", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": false },
+    { "ticket_id": "t9", "ticket_type_id": "tt1", "attendee_id": "a9", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": true },
+    { "ticket_id": "t10", "ticket_type_id": "tt1", "attendee_id": "a10", "transaction_id": "tr1", "status": "ACTIVE", "has_food_access": true }
+  ]
+}
