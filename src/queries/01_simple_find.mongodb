@@ -5,16 +5,31 @@ use("reservaDB")
 // =======================
 
 // 1. Ver todos los usuarios del festival
-db.perso.find()
+db.Attendees.find()
 
 // 2. Buscar usuario por nombre exacto
-db.perso.find({ name: "Ethan Hunt"})
+db.Attendees.find({ name: "Ethan Hunt"})
 
 // 3. Buscar por attendee_id 
-db.perso.find({ attendee_id: "att_009" })
+db.Attendes.find({ attendee_id: "att_009" })
 
 // 4. Mostrar solo la zona en la que fue comprada en boleto:
-db.perso.find({ zone_id: "z2" })
+db.Attendees.find({ zone_id: "z2" })
 
 //5. buscar por correo electronico
-db.perso.find({ email: "ian.c@joy.com" })
+db.Attendees.find({ email: "ian.c@joy.com" })
+
+//6. Buscar el concierto 
+db.Concerts.find()
+
+//7. Encontrar los metodos de pago
+db.PaymentMethods.find()
+
+//8. Encontrar horarios
+db.Schedules.find()
+
+//9 Encontrar tickets
+db.Tickets.find()
+
+
+
