@@ -1,7 +1,7 @@
 use("reservaDB")
 
 // =======================
-// USERS (TICKETS RESTRUCTURED)
+//(TICKETS RESTRUCTURED)
 // =======================
 
 // 1. Ver todos los usuarios del festival
