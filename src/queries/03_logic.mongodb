@@ -1,0 +1,45 @@
+
+
+//Sentencias_$not, $and y $or
+
+//1.-$and: Para validaciones de identidad cruzada (Nombre + Email).
+
+//db.Attendees.find({
+  $and: [
+    { "name": "Alice Johnson" },
+    { "attendee_id": "a1" }
+  ]
+
+//db.Attendees.find({
+  $and: [
+    { "name": "Edward Norton" },
+    { "attendee_id": "a5" }
+  ]
+})
+
+//2.-$or: Para búsquedas multicanal.
+
+//db.Schedules.find({
+  $or: [
+    { "schedule_id": "s4" },
+    { "activity_name": "Show Principal" }
+  ]
+})
+
+//db.Schedules.find({
+  $or: [
+    { "schedule_id": "s1" },
+    { "activity_name": "Apertura" }
+  ]
+})
+
+
+//3.-$not: Para la generación de reportes de exclusión y limpieza de datos
+
+//db.Transaction.find({
+  "total_amount": { $not: { $eq: 200 } }
+})
+
+//db.Transaction.find({
+  "method_id": { $not: { $eq: "pm1" } }
+})
