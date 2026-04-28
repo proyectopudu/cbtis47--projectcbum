@@ -1,0 +1,35 @@
+
+
+
+//operadores ($gt,$lt,$gte,$lte)
+//$gt: busca que el identificador (“attendee_id”) sea mayor.
+  
+//db.Attendees.find({
+  attendee_id: {$gt: "a1"}  
+})
+
+//$lt: busca que el identificador ("attendee_id") sea menor. 
+
+//db.Attendees.find({ attendee_id: {$lt: "a8"}   })
+
+
+//$gte: busca que el identificador (“attendee_id”) sea mayor o igual.
+
+//db.Attendees.find({ attendee_id: {$gte: "a5"}   })
+
+
+//$lte: busca que el identificador (“attendee_id”) sea menor o igual.
+
+//db.Attendees.find({ attendee_id: {$lte: "a5"}   })
+
+
+//$ne: busca una zoona diferente a "z2" (zona 2)
+
+//db.Zones.find({zone_id: {$ne: "z2" }}) 
+
+
+//$in: busca una o mas zonas
+db.TicketType.find({ ticket_type_id: { $in: ["tt2", "tt1"] } })
+
+
+
