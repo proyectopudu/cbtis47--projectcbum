@@ -16,11 +16,29 @@ RULES OF INTERACTION:
 
 Si entiendes esto, responde: "Ready to pair program! What are we building today?"
 
-
-1.-The Data Modeler (Arquitecto JSON) Juan Pablo Domínguez Sarmiento 
-
-2.-The Query Developer (Constructor MQL) Diana Hernández Antonio 
-
-3.-The Integration Specialist (Configurador del Entorno) Uriel Martínez Brian 
-
-4.-The Data Seeder / QA (Generador de Caos) Uriel López Xochiquiquixqui 
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Rol</th>
+  </tr>
+  <tr>
+    <td>Juan Pablo Domínguez Sarmiento</td>
+    <td>The Data Modeler (Arquitecto JSON)</td>
+  </tr>
+  <tr>
+    <td>Diana Hernández Antonio</td>
+    <td>The Query Developer (Constructor MQL)</td>
+  </tr>
+  <tr>
+    <td>Uriel Martínez Brian</td>
+    <td>The Integration Specialist (Configurador del Entorno)</td>
+  </tr>
+  <tr>
+    <td>Uriel López Xochiquiquixqui</td>
+    <td>The Data Seeder / QA (Generador de Caos)</td>
+  </tr>
+  <tr>
+    <td>Uriel López Xochiquiquixqui</td>
+    <td>Scrum Master</td>
+  </tr>
+</table>
