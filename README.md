@@ -15,3 +15,14 @@ RULES OF INTERACTION:
 4. Stack: We limit ourselves to JSON, BSON, MongoDB Compass, and Mermaid.js.
 
 Si entiendes esto, responde: "Ready to pair program! What are we building today?"
+
+
+v#,Nombre Técnico,Responsabilidad Principal,Integrante Asignado
+
+1,The Data Modeler (Arquitecto JSON),Define la estructura del documento. Decide qué datos se embeben y cuáles se referencian. Escribe el diagrama en Mermaid.js. ,Juan Pablo Domínguez Sarmiento 
+
+2,The Query Developer (Constructor MQL),Traduce preguntas de negocio a código MongoDB (db.collection.find(...)). Interactúa con la IA para optimizar filtros. ,Diana Hernández Antonio 
+
+3,The Integration Specialist (Configurador del Entorno),Crea el Cluster en Atlas o conexión en Compass. Gestiona índices básicos y administra el repositorio GitHub. ,Uriel Martínez Brian 
+
+4,The Data Seeder / QA (Generador de Caos),"Crea datos de prueba ficticios (JSON) usando IA o Mockaroo. Valida consultas y reporta ""bugs"". ",Uriel López Xochiquiquixqui 
