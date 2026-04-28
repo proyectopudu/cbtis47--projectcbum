@@ -1,8 +1,7 @@
 
 // =======================
-// (TICKETS RESTRUCTURED)
+// (Event_Ticket_Tystem)
 // =======================
-
 
 //operadores ($gt,$lt,$gte,$lte)
 //$gt: busca que el identificador (“attendee_id”) sea mayor.
