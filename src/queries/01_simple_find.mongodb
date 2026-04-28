@@ -1,7 +1,6 @@
-use("reservaDB")
 
 // =======================
-//(TICKETS RESTRUCTURED)
+// (Event_Ticket_Tystem)
 // =======================
 
 // 1. Ver todos los usuarios del festival
