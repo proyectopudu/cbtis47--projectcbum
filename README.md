@@ -59,7 +59,7 @@ Si entiendes esto, responde: "Ready to pair program! What are we building today?
 
 
 
-# 🚩 <span style="color:#e91e63">Event Ticket Management System (MongoDB) ;) </span>
+# 🚩 <span style="color:#e91e63">Event Ticket Management System (MongoDB) =) </span>
 
 ---
 
