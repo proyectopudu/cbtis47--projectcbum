@@ -99,38 +99,139 @@ Antes de comenzar, asegúrate de tener instalado:
 - [MongoDB Compass](https://www.mongodb.com/products/compass) `>= 1.40` — Interfaz gráfica
 - [Mongosh](https://www.mongodb.com/docs/mongodb-shell/) `>= 2.0` — Shell interactivo
 - Acceso a Internet para conectar con Atlas
+# 🚀 Inicio Rápido — TicketVault
+
+## 1. Instala las herramientas
+| Herramienta | Link |
+| :--- | :--- |
+| Node.js `>= 18` | [nodejs.org](https://nodejs.org) |
+| Visual Studio Code | [code.visualstudio.com](https://code.visualstudio.com) |
+| MongoDB Compass | [mongodb.com/compass](https://www.mongodb.com/products/compass) |
+| Cuenta MongoDB Atlas | [mongodb.com/atlas](https://www.mongodb.com/cloud/atlas) |
 
 ---
 
-## ⚙️ Instalación y Configuración
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/tu-usuario/cbtis47--projectcbum.git
-cd cbtis47--projectcbum
+## 2. Configura MongoDB Atlas
+1. Crea un clúster **M0 Free** → nombre: `rockfestival2026`
+2. Crea un usuario `admin` con contraseña (sin `@` ni `/`)
+3. En **Network Access** → **Allow Access from Anywhere**
+4. En **Connect → Drivers** copia tu connection string:
 ```
-
-### 2. Conectar con MongoDB Atlas via Mongosh
-
-```bash
-mongosh "mongodb+srv://<usuario>:<password>@<cluster>.mongodb.net/rockfestival2026"
-```
-
-### 3. Seleccionar la base de datos
-
-```javascript
-use rockfestival2026
-```
-
-### 4. Verificar colecciones disponibles
-
-```javascript
-show collections
-// Expected output: attendees | schedules | concerts
+mongodb+srv://admin:TU_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
 ```
 
 ---
+
+## 3. Crea el proyecto
+
+```bash
+mkdir ticketvault && cd ticketvault
+npm init -y
+npm install express mongoose cors dotenv
+```
+
+**Archivo `.env`** (en la raíz):
+```env
+MONGODB_URI=mongodb+srv://admin:TU_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
+PORT=3000
+```
+
+**`.gitignore`:**
+```
+node_modules/
+.env
+```
+
+---
+
+## 4. Estructura del proyecto
+
+```
+ticketvault/
+├── public/
+│   └── index.html     ← tu ticket-app.html renombrado
+├── .env
+├── .gitignore
+└── index.js           ← el servidor
+```
+
+---
+
+## 5. Crea `index.js`
+
+```javascript
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ Conectado a MongoDB Atlas'))
+  .catch(err => console.error('❌ Error:', err));
+
+// Schemas
+const Evento = mongoose.model('Evento', new mongoose.Schema({
+  nombre: String, venue: String, fecha: String, hora: String,
+  categoria: String, desc: String, bg: String, emoji: String,
+  zonas: [{ id: String, nombre: String, precio: Number, cupo_total: Number, cupo_disponible: Number }]
+}));
+
+const Boleto = mongoose.model('Boleto', new mongoose.Schema({
+  codigo: { type: String, unique: true },
+  evento: String, venue: String, fecha: String, zona: String,
+  precio: Number, emoji: String,
+  estado: { type: String, enum: ['confirmada', 'usada', 'cancelada'], default: 'confirmada' },
+  comprador: { nombre: String, email: String, telefono: String }
+}, { timestamps: true }));
+
+// Rutas
+app.get('/api/eventos', async (req, res) => res.json(await Evento.find()));
+app.post('/api/eventos', async (req, res) => res.status(201).json(await new Evento(req.body).save()));
+
+app.get('/api/boletos', async (req, res) => res.json(await Boleto.find().sort({ createdAt: -1 })));
+app.post('/api/boletos', async (req, res) => res.status(201).json(await new Boleto(req.body).save()));
+app.patch('/api/boletos/:codigo/usar', async (req, res) => {
+  const b = await Boleto.findOneAndUpdate({ codigo: req.params.codigo }, { $set: { estado: 'usada' } }, { new: true });
+  b ? res.json(b) : res.status(404).json({ error: 'No encontrado' });
+});
+
+app.listen(process.env.PORT || 3000, () =>
+  console.log(`🎟️  TicketVault en http://localhost:${process.env.PORT || 3000}`));
+```
+
+---
+
+## 6. Corre la app
+
+```bash
+node index.js
+```
+
+Abre **`http://localhost:3000`** — los eventos cargan solos la primera vez. ✅
+
+Abre **MongoDB Compass**, pega tu connection string y verifica las colecciones `eventos` y `boletos`.
+
+---
+
+## ❌ Errores comunes
+
+| Error | Solución |
+| :--- | :--- |
+| `Cannot find module 'express'` | Ejecuta `npm install express mongoose cors dotenv` |
+| `bad auth` | Revisa la contraseña en `.env` (sin `@` ni `/`) |
+| Pantalla en blanco / sin eventos | Verifica que el servidor esté corriendo en la terminal |
+| Puerto 3000 ocupado | Cambia a `PORT=3001` en `.env` |
+
+---
+
+*CBTIS 47 — Rock Festival 2026* 🎸
+
 
 ## 📁 Estructura de Datos
 
