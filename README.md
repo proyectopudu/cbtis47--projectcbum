@@ -1,5 +1,5 @@
 # 🎸 Event Ticket Management System
-### *Rock Festival 2026 — MongoDB Edition*
+
 
 <div align="center">
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 🖤 Resumen del Proyecto
+## 🖤DESCRIPCION
 
 > **Estatus:** 🔴 Operativo | **Entorno:** Cloud Atlas
 
