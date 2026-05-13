@@ -1,128 +1,149 @@
-# 🎸 Event Ticket Management System
-
-
 <div align="center">
 
-![MongoDB](https://img.shields.io/badge/Database-MongoDB%20Atlas-black?style=for-the-badge&logo=mongodb&logoColor=red)
-![Compass](https://img.shields.io/badge/Interface-MongoDB%20Compass-red?style=for-the-badge&logo=mongodb&logoColor=black)
-![Shell](https://img.shields.io/badge/Shell-Mongosh-black?style=for-the-badge&logo=javascript&logoColor=red)
-![Format](https://img.shields.io/badge/Format-JSON%20/%20BSON-red?style=for-the-badge&logo=json&logoColor=black)
-![Status](https://img.shields.io/badge/Estatus-🔴%20Operativo-black?style=for-the-badge)
-![Entorno](https://img.shields.io/badge/Entorno-Cloud%20Atlas-red?style=for-the-badge)
+<br/>
+
+# 🎸 Event Ticket Management System
+
+### *Rock Festival 2026 — MongoDB NoSQL Edition*
+
+<br/>
+
+![MongoDB](https://img.shields.io/badge/Database-MongoDB%20Atlas-000000?style=for-the-badge&logo=mongodb&logoColor=47A248)
+![Compass](https://img.shields.io/badge/Interface-MongoDB%20Compass-13AA52?style=for-the-badge&logo=mongodb&logoColor=white)
+![Shell](https://img.shields.io/badge/Shell-Mongosh-000000?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![Node](https://img.shields.io/badge/Runtime-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Format](https://img.shields.io/badge/Format-JSON%20%2F%20BSON-000000?style=for-the-badge&logo=json&logoColor=white)
+![VSCode](https://img.shields.io/badge/Editor-VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+
+<br/>
+
+![Status](https://img.shields.io/badge/Status-🔴%20Live-black?style=flat-square)
+![Environment](https://img.shields.io/badge/Environment-Cloud%20Atlas-13AA52?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
+![CBTIS](https://img.shields.io/badge/Team-CBTIS%2047-6e40c9?style=flat-square)
 
 </div>
 
 ---
 
-## 🖤DESCRIPCION
+## 📖 Description
 
-> **Estatus:** 🔴 Operativo | **Entorno:** Cloud Atlas
+> **Status:** 🔴 Live &nbsp;|&nbsp; **Environment:** Cloud Atlas &nbsp;|&nbsp; **Event:** Rock Festival 2026
 
-Este proyecto redefine la administración de eventos masivos mediante una base de datos **NoSQL** de alto rendimiento. Diseñado para el **Rock Festival 2026**, el sistema gestiona el flujo integral:
+This project redefines the management of large-scale events through a high-performance **NoSQL** database. Built for the **Rock Festival 2026**, the system handles the complete event workflow:
 
-* 🎫 **Registro:** Control total de asistentes y boletos.
-* 🕒 **Agilidad:** Actualización de horarios en tiempo real.
-* 🎸 **Lineup:** Gestión dinámica de artistas confirmados.
-
-A diferencia de SQL, aquí usamos la flexibilidad de **JSON/BSON** para evolucionar sin detener la operación, permitiendo cambios estructurales al vuelo.
-
----
-
-## 📋 Tabla de Contenidos
-
-- [Resumen del Proyecto](#-resumen-del-proyecto)
-- [Equipo de Desarrollo](#-equipo-de-desarrollo)
-- [Roles y Responsabilidades Técnicas](#-roles-y-responsabilidades-técnicas)
-- [Logros Técnicos](#-logros-técnicos)
-- [Stack Tecnológico](#-stack-tecnológico)
-- [Prerrequisitos](#-prerrequisitos)
-- [Instalación y Configuración](#-instalación-y-configuración)
-- [Estructura de Datos](#-estructura-de-datos)
-- [Operaciones MQL Clave](#-operaciones-mql-clave)
-- [Diagrama de Colecciones](#-diagrama-de-colecciones)
-- [Ejemplo de Operación Exitosa](#-ejemplo-de-operación-exitosa)
-- [Contribución](#-contribución)
-- [Licencia](#-licencia)
-- [Contacto](#-contacto)
-
----
-
-## 👥 Equipo de Desarrollo
-
-| Nombre | Rol |
+| Feature | Description |
 | :--- | :--- |
-| Juan Pablo Domínguez Sarmiento | The Data Modeler (Arquitecto JSON) |
-| Diana Hernández Antonio | The Query Developer (Constructor MQL) |
-| Uriel Martínez Brian | The Integration Specialist (Configurador del Entorno) |
-| Uriel López Xochiquiquixqui | The Data Seeder / QA (Generador de Caos) |
-| Uriel López Xochiquiquixqui | Scrum Master |
+| 🎫 **Registration** | Full control of attendees and ticket lifecycle |
+| 🕒 **Agility** | Real-time schedule and delay updates |
+| 🎸 **Lineup** | Dynamic management of confirmed artists per stage |
+
+Unlike SQL, we leverage the flexibility of **JSON/BSON** to evolve the data structure without stopping operations — allowing structural changes on the fly.
 
 ---
 
-## 🛠️ Roles y Responsabilidades Técnicas
+## 📋 Table of Contents
 
-| Rol | Responsabilidades Técnicas (MQL & JSON) |
+| # | Section |
+| :---: | :--- |
+| 01 | [Development Team](#-development-team) |
+| 02 | [Roles & Technical Responsibilities](#️-roles--technical-responsibilities) |
+| 03 | [Technical Achievements](#-technical-achievements) |
+| 04 | [Tech Stack](#-tech-stack) |
+| 05 | [Prerequisites](#-prerequisites) |
+| 06 | [Quick Start](#-quick-start) |
+| 07 | [Data Structure](#-data-structure) |
+| 08 | [Key MQL Operations](#-key-mql-operations) |
+| 09 | [Collections Diagram](#-collections-diagram) |
+| 10 | [Successful Operation Example](#-successful-operation-example) |
+| 11 | [Contributing](#-contributing) |
+| 12 | [License](#-license) |
+| 13 | [Contact](#-contact) |
+
+---
+
+## 👥 Development Team
+
+<div align="center">
+
+| Avatar | Name | Role |
+| :---: | :--- | :--- |
+| ![JP](https://img.shields.io/badge/JP-4A90E2?style=flat-square&logoColor=white) | Juan Pablo Domínguez Sarmiento | The Data Modeler — JSON Architect |
+| ![DH](https://img.shields.io/badge/DH-13AA52?style=flat-square&logoColor=white) | Diana Hernández Antonio | The Query Developer — MQL Builder |
+| ![UM](https://img.shields.io/badge/UM-F59E0B?style=flat-square&logoColor=white) | Uriel Martínez Brian | The Integration Specialist — Environment Admin |
+| ![UL](https://img.shields.io/badge/UL-EF4444?style=flat-square&logoColor=white) | Uriel López Xochiquiquixqui | The Data Seeder — QA / Chaos Generator |
+| ![UL](https://img.shields.io/badge/UL-8B5CF6?style=flat-square&logoColor=white) | Uriel López Xochiquiquixqui | Scrum Master |
+
+</div>
+
+---
+
+## 🛠️ Roles & Technical Responsibilities
+
+| Role | Technical Responsibilities |
 | :--- | :--- |
-| ![Arquitecto](https://img.shields.io/badge/Rol-Arquitecto_JSON-blue?style=for-the-badge) | Diseño de la estructura lógica de los documentos. Define esquemas y estrategias de anidamiento para optimizar el rendimiento. |
-| ![MQL](https://img.shields.io/badge/Rol-Constructor_MQL-green?style=for-the-badge) | Desarrollo de consultas y lógica de actualización. Experto en el uso de operadores como `$set`, `$inc` y `$push`. |
-| ![Admin](https://img.shields.io/badge/Rol-Entorno_/_Admin-orange?style=for-the-badge) | Administración de clústeres en **MongoDB Atlas**, configuración de seguridad y despliegue de herramientas CLI como **Mongosh**. |
-| ![QA](https://img.shields.io/badge/Rol-QA_/_Seeding-red?style=for-the-badge) | Ejecución de carga de datos mediante semillas JSON y validación de integridad (monitoreo de `matchedCount` y `modifiedCount`). |
-| ![Scrum](https://img.shields.io/badge/Rol-Scrum_Master-lightgrey?style=for-the-badge) | Facilitador técnico del flujo de trabajo. Asegura que el modelado y las consultas se integren sin errores en el ciclo de desarrollo. |
+| ![Architect](https://img.shields.io/badge/Role-JSON_Architect-4A90E2?style=for-the-badge) | Designs the logical structure of documents. Defines schemas and embedding strategies to optimize read performance. |
+| ![MQL](https://img.shields.io/badge/Role-MQL_Builder-13AA52?style=for-the-badge) | Develops queries and update logic. Expert in operators like `$set`, `$inc`, and `$push`. |
+| ![Admin](https://img.shields.io/badge/Role-Environment_Admin-F59E0B?style=for-the-badge) | Manages **MongoDB Atlas** clusters, security configuration, and CLI tools like **Mongosh**. |
+| ![QA](https://img.shields.io/badge/Role-QA_Seeding-EF4444?style=for-the-badge) | Runs JSON seed data loads and validates integrity via `matchedCount` and `modifiedCount`. |
+| ![Scrum](https://img.shields.io/badge/Role-Scrum_Master-8B5CF6?style=for-the-badge) | Technical workflow facilitator. Ensures modeling and queries integrate without errors across the dev cycle. |
 
 ---
 
-## 🚀 Logros Técnicos
+## 🚀 Technical Achievements
 
-| Área | Implementación | Operador Clave |
-| :--- | :--- | :--- |
-| **Modelado Dinámico** | Estructuración de `Attendees`, `Schedules` y `Concerts` | `Schema-less` |
-| **Perfiles** | Corrección de contacto y gestión de estados | `$set` |
-| **Logística** | Control de retrasos y métricas de tiempo | `$inc` |
-| **Cartelera** | Construcción de listas de artistas en vivo | `$push` |
-
----
-
-## 📦 Stack Tecnológico
-
-![MongoDB](https://img.shields.io/badge/Database-MongoDB%20Atlas-black?style=for-the-badge&logo=mongodb&logoColor=red)
-![Compass](https://img.shields.io/badge/Interface-MongoDB%20Compass-red?style=for-the-badge&logo=mongodb&logoColor=black)
-![Shell](https://img.shields.io/badge/Shell-Mongosh-black?style=for-the-badge&logo=javascript&logoColor=red)
-![Format](https://img.shields.io/badge/Format-JSON%20/%20BSON-red?style=for-the-badge&logo=json&logoColor=black)
+| Area | Implementation | Key Operator |
+| :--- | :--- | :---: |
+| **Dynamic Modeling** | Structuring of `Attendees`, `Schedules`, and `Concerts` | `Schema-less` |
+| **Profile Management** | Contact correction and document status updates | `$set` |
+| **Logistics** | Stage delay tracking and time metric increments | `$inc` |
+| **Lineup** | Live artist list construction per concert stage | `$push` |
 
 ---
 
-## ✅ Prerrequisitos
+## 📦 Tech Stack
 
-Antes de comenzar, asegúrate de tener instalado:
+<div align="center">
 
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) — Cuenta activa en el clúster cloud
-- [MongoDB Compass](https://www.mongodb.com/products/compass) `>= 1.40` — Interfaz gráfica
-- [Mongosh](https://www.mongodb.com/docs/mongodb-shell/) `>= 2.0` — Shell interactivo
-- Acceso a Internet para conectar con Atlas
-# 🚀 Inicio Rápido — TicketVault
+![MongoDB](https://img.shields.io/badge/MongoDB%20Atlas-000000?style=for-the-badge&logo=mongodb&logoColor=47A248)
+![Compass](https://img.shields.io/badge/MongoDB%20Compass-13AA52?style=for-the-badge&logo=mongodb&logoColor=white)
+![Mongosh](https://img.shields.io/badge/Mongosh-000000?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![JSON](https://img.shields.io/badge/JSON%20%2F%20BSON-000000?style=for-the-badge&logo=json&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
 
-## 1. Instala las herramientas
-| Herramienta | Link |
-| :--- | :--- |
-| Node.js `>= 18` | [nodejs.org](https://nodejs.org) |
-| Visual Studio Code | [code.visualstudio.com](https://code.visualstudio.com) |
-| MongoDB Compass | [mongodb.com/compass](https://www.mongodb.com/products/compass) |
-| Cuenta MongoDB Atlas | [mongodb.com/atlas](https://www.mongodb.com/cloud/atlas) |
+</div>
 
 ---
 
-## 2. Configura MongoDB Atlas
-1. Crea un clúster **M0 Free** → nombre: `rockfestival2026`
-2. Crea un usuario `admin` con contraseña (sin `@` ni `/`)
-3. En **Network Access** → **Allow Access from Anywhere**
-4. En **Connect → Drivers** copia tu connection string:
+## ✅ Prerequisites
+
+Make sure you have the following installed before continuing:
+
+- 🍃 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) — Active free cloud cluster
+- 🧭 [MongoDB Compass](https://www.mongodb.com/products/compass) `>= 1.40` — Graphical interface
+- 💻 [Mongosh](https://www.mongodb.com/docs/mongodb-shell/) `>= 2.0` — Interactive CLI shell
+- 🟢 [Node.js](https://nodejs.org) `>= 18` — JavaScript runtime for the server
+- 🔵 [Visual Studio Code](https://code.visualstudio.com) — Code editor
+- 🌐 Internet access to connect to Atlas
+
+---
+
+## ⚡ Quick Start
+
+### 1 — Configure MongoDB Atlas
+
+1. Create a free **M0** cluster → name it `rockfestival2026`
+2. Create user `admin` with a password *(no `@` or `/` characters)*
+3. **Network Access** → **Allow Access from Anywhere**
+4. **Connect → Drivers** → copy your connection string:
+
 ```
-mongodb+srv://admin:TU_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
+mongodb+srv://admin:YOUR_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
 ```
 
----
-
-## 3. Crea el proyecto
+### 2 — Set up the project
 
 ```bash
 mkdir ticketvault && cd ticketvault
@@ -130,34 +151,33 @@ npm init -y
 npm install express mongoose cors dotenv
 ```
 
-**Archivo `.env`** (en la raíz):
+**`.env`** file at the root:
+
 ```env
-MONGODB_URI=mongodb+srv://admin:TU_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
+MONGODB_URI=mongodb+srv://admin:YOUR_PASSWORD@rockfestival2026.xxxxx.mongodb.net/rockfestival2026
 PORT=3000
 ```
 
 **`.gitignore`:**
+
 ```
 node_modules/
 .env
 ```
 
----
-
-## 4. Estructura del proyecto
+### 3 — Project structure
 
 ```
 ticketvault/
 ├── public/
-│   └── index.html     ← tu ticket-app.html renombrado
-├── .env
+│   └── index.html       ← ticket-app.html renamed
+├── .env                 ← your Atlas connection string
 ├── .gitignore
-└── index.js           ← el servidor
+├── index.js             ← the Express server
+└── package.json
 ```
 
----
-
-## 5. Crea `index.js`
+### 4 — Create `index.js`
 
 ```javascript
 const express = require('express');
@@ -172,72 +192,71 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Conectado a MongoDB Atlas'))
-  .catch(err => console.error('❌ Error:', err));
+  .then(() => console.log('✅ Connected to MongoDB Atlas'))
+  .catch(err => console.error('❌ Connection error:', err));
 
 // Schemas
 const Evento = mongoose.model('Evento', new mongoose.Schema({
   nombre: String, venue: String, fecha: String, hora: String,
   categoria: String, desc: String, bg: String, emoji: String,
-  zonas: [{ id: String, nombre: String, precio: Number, cupo_total: Number, cupo_disponible: Number }]
+  zonas: [{ id: String, nombre: String, precio: Number,
+            cupo_total: Number, cupo_disponible: Number }]
 }));
 
 const Boleto = mongoose.model('Boleto', new mongoose.Schema({
-  codigo: { type: String, unique: true },
+  codigo:    { type: String, unique: true },
   evento: String, venue: String, fecha: String, zona: String,
   precio: Number, emoji: String,
-  estado: { type: String, enum: ['confirmada', 'usada', 'cancelada'], default: 'confirmada' },
+  estado:    { type: String, enum: ['confirmada','usada','cancelada'], default: 'confirmada' },
   comprador: { nombre: String, email: String, telefono: String }
 }, { timestamps: true }));
 
-// Rutas
-app.get('/api/eventos', async (req, res) => res.json(await Evento.find()));
+// Routes
+app.get('/api/eventos',  async (req, res) => res.json(await Evento.find()));
 app.post('/api/eventos', async (req, res) => res.status(201).json(await new Evento(req.body).save()));
 
-app.get('/api/boletos', async (req, res) => res.json(await Boleto.find().sort({ createdAt: -1 })));
+app.get('/api/boletos',  async (req, res) => res.json(await Boleto.find().sort({ createdAt: -1 })));
 app.post('/api/boletos', async (req, res) => res.status(201).json(await new Boleto(req.body).save()));
 app.patch('/api/boletos/:codigo/usar', async (req, res) => {
-  const b = await Boleto.findOneAndUpdate({ codigo: req.params.codigo }, { $set: { estado: 'usada' } }, { new: true });
-  b ? res.json(b) : res.status(404).json({ error: 'No encontrado' });
+  const b = await Boleto.findOneAndUpdate(
+    { codigo: req.params.codigo },
+    { $set: { estado: 'usada' } },
+    { new: true }
+  );
+  b ? res.json(b) : res.status(404).json({ error: 'Ticket not found' });
 });
 
 app.listen(process.env.PORT || 3000, () =>
-  console.log(`🎟️  TicketVault en http://localhost:${process.env.PORT || 3000}`));
+  console.log(`🎟️  TicketVault running at http://localhost:${process.env.PORT || 3000}`));
 ```
 
----
-
-## 6. Corre la app
+### 5 — Run the app
 
 ```bash
 node index.js
 ```
 
-Abre **`http://localhost:3000`** — los eventos cargan solos la primera vez. ✅
+Open **`http://localhost:3000`** — events load automatically on first run. ✅
 
-Abre **MongoDB Compass**, pega tu connection string y verifica las colecciones `eventos` y `boletos`.
+> 💡 **Tip:** Use `npx nodemon index.js` to auto-restart on file changes.
 
----
+### ❌ Common Errors
 
-## ❌ Errores comunes
-
-| Error | Solución |
+| Error | Solution |
 | :--- | :--- |
-| `Cannot find module 'express'` | Ejecuta `npm install express mongoose cors dotenv` |
-| `bad auth` | Revisa la contraseña en `.env` (sin `@` ni `/`) |
-| Pantalla en blanco / sin eventos | Verifica que el servidor esté corriendo en la terminal |
-| Puerto 3000 ocupado | Cambia a `PORT=3001` en `.env` |
+| `Cannot find module 'express'` | Run `npm install express mongoose cors dotenv` |
+| `MongoServerError: bad auth` | Check password in `.env` — no `@` or `/` allowed |
+| Blank screen / no events | Verify the server is running in terminal |
+| Port 3000 already in use | Set `PORT=3001` in `.env` |
 
 ---
 
-*CBTIS 47 — Rock Festival 2026* 🎸
+## 📁 Data Structure
 
+The system operates on three main collections:
 
-## 📁 Estructura de Datos
-
-El sistema opera sobre tres colecciones principales. A continuación, un ejemplo del esquema de cada una:
-
-### `attendees` — Asistentes registrados
+<details>
+<summary><b>📋 attendees — Registered attendees</b></summary>
 
 ```json
 {
@@ -254,7 +273,10 @@ El sistema opera sobre tres colecciones principales. A continuación, un ejemplo
 }
 ```
 
-### `schedules` — Horarios de escenarios
+</details>
+
+<details>
+<summary><b>🕒 schedules — Stage schedules</b></summary>
 
 ```json
 {
@@ -267,7 +289,10 @@ El sistema opera sobre tres colecciones principales. A continuación, un ejemplo
 }
 ```
 
-### `concerts` — Lineup de artistas
+</details>
+
+<details>
+<summary><b>🎸 concerts — Artist lineup</b></summary>
 
 ```json
 {
@@ -275,26 +300,28 @@ El sistema opera sobre tres colecciones principales. A continuación, un ejemplo
   "stage": "Main Stage",
   "date": "2026-07-04",
   "artists": [
-    { "name": "Banda X", "genre": "Metal", "set_duration_min": 60 },
-    { "name": "Grupo Y", "genre": "Rock", "set_duration_min": 45 }
+    { "name": "Band X", "genre": "Metal", "set_duration_min": 60 },
+    { "name": "Group Y", "genre": "Rock",  "set_duration_min": 45 }
   ]
 }
 ```
 
+</details>
+
 ---
 
-## 🔍 Operaciones MQL Clave
+## 🔍 Key MQL Operations
 
-### Actualizar contacto de un asistente (`$set`)
+### Update an attendee's contact — `$set`
 
 ```javascript
 db.attendees.updateOne(
   { "name": "Carlos Reyes" },
-  { $set: { "email": "nuevo.email@correo.com" } }
+  { $set: { "email": "new.email@mail.com" } }
 )
 ```
 
-### Registrar retraso en escenario (`$inc`)
+### Log a stage delay — `$inc`
 
 ```javascript
 db.schedules.updateOne(
@@ -303,16 +330,16 @@ db.schedules.updateOne(
 )
 ```
 
-### Agregar artista al lineup (`$push`)
+### Add an artist to the lineup — `$push`
 
 ```javascript
 db.concerts.updateOne(
   { "stage": "Main Stage", "date": "2026-07-04" },
-  { $push: { "artists": { "name": "Banda Z", "genre": "Punk", "set_duration_min": 30 } } }
+  { $push: { "artists": { "name": "Band Z", "genre": "Punk", "set_duration_min": 30 } } }
 )
 ```
 
-### Consultar todos los asistentes VIP
+### Query all VIP attendees — `find`
 
 ```javascript
 db.attendees.find({ "ticket.type": "VIP" })
@@ -320,99 +347,99 @@ db.attendees.find({ "ticket.type": "VIP" })
 
 ---
 
-## 📊 Diagrama de Colecciones
+## 📊 Collections Diagram
 
 ```mermaid
 erDiagram
     ATTENDEES {
         ObjectId _id
-        string name
-        string email
-        string phone
-        object ticket
-        date registered_at
+        string   name
+        string   email
+        string   phone
+        object   ticket
+        date     registered_at
     }
 
     SCHEDULES {
         ObjectId _id
-        string stage
-        string date
-        string start_time
-        int delay_minutes
-        string status
+        string   stage
+        string   date
+        string   start_time
+        int      delay_minutes
+        string   status
     }
 
     CONCERTS {
         ObjectId _id
-        string stage
-        string date
-        array artists
+        string   stage
+        string   date
+        array    artists
     }
 
-    ATTENDEES ||--o{ SCHEDULES : "asiste a"
-    SCHEDULES ||--|| CONCERTS : "pertenece a"
+    ATTENDEES ||--o{ SCHEDULES : "attends"
+    SCHEDULES ||--||  CONCERTS : "belongs to"
 ```
 
 ---
 
-## 🧪 Ejemplo de Operación Exitosa
+## 🧪 Successful Operation Example
 
 ```diff
-+ matchedCount: 1
++ matchedCount:  1
 + modifiedCount: 1
-+ acknowledged: true
++ acknowledged:  true
 ```
 
-Esto confirma que la operación de actualización fue reconocida por el servidor, encontró exactamente un documento y lo modificó correctamente.
+> The update was acknowledged by the server, matched exactly one document, and modified it correctly.
 
 ---
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-¿Quieres mejorar el sistema? Sigue estas reglas:
+1. Fork the repository
+2. Create your feature branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "feat: clear description of the change"
+   ```
+4. Push and open a **Pull Request** describing what changed and why.
 
-1. Crea un fork del repositorio
-2. Crea tu rama de feature:
-   ```bash
-   git checkout -b feature/nombre-de-tu-feature
-   ```
-3. Haz commit de tus cambios:
-   ```bash
-   git commit -m "feat: descripción clara del cambio"
-   ```
-4. Sube tu rama:
-   ```bash
-   git push origin feature/nombre-de-tu-feature
-   ```
-5. Abre un **Pull Request** describiendo qué cambiaste y por qué.
-
-> **Nota:** Todo código, variables, comentarios y documentación debe escribirse **en inglés**. Las explicaciones pueden ser en español.
+> **Note:** All code, variable names, comments, and documentation must be written **in English**.
 
 ---
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📬 Contacto
+## 📬 Contact
 
-**CBTIS 47 — Equipo de Desarrollo**
+<div align="center">
 
-| Integrante | GitHub |
-| :--- | :--- |
-| Juan Pablo Domínguez Sarmiento | [@usuario](https://github.com) |
-| Diana Hernández Antonio | [@usuario](https://github.com) |
-| Uriel Martínez Brian | [@usuario](https://github.com) |
-| Uriel López Xochiquiquixqui | [@usuario](https://github.com) |
+| Avatar | Member | GitHub |
+| :---: | :--- | :--- |
+| ![JP](https://img.shields.io/badge/JP-4A90E2?style=flat-square) | Juan Pablo Domínguez Sarmiento | [@username](https://github.com) |
+| ![DH](https://img.shields.io/badge/DH-13AA52?style=flat-square) | Diana Hernández Antonio | [@username](https://github.com) |
+| ![UM](https://img.shields.io/badge/UM-F59E0B?style=flat-square) | Uriel Martínez Brian | [@username](https://github.com) |
+| ![UL](https://img.shields.io/badge/UL-EF4444?style=flat-square) | Uriel López Xochiquiquixqui | [@username](https://github.com) |
+
+</div>
 
 ---
 
 <div align="center">
 
-**Hecho con 🖤 y mucho MQL por el equipo de CBTIS 47**
+**Made with 🖤 and lots of MQL by the CBTIS 47 team**
 
-![MongoDB](https://img.shields.io/badge/Powered%20by-MongoDB-black?style=for-the-badge&logo=mongodb&logoColor=red)
+<br/>
+
+![MongoDB](https://img.shields.io/badge/Powered%20by-MongoDB-13AA52?style=for-the-badge&logo=mongodb&logoColor=white)
+&nbsp;
+![Rock](https://img.shields.io/badge/Rock%20Festival-2026-000000?style=for-the-badge)
 
 </div>
