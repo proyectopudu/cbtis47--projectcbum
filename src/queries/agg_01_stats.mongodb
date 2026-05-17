@@ -1,0 +1,70 @@
+1 Operador $Match
+
+db.Schedules.aggregate([
+  { $match: { concert_id: "c1" } }
+])
+
+2 Operador $Match
+
+db.Schedules.aggregate([
+  { $match: { activity_name: "Cierre" } }
+])
+
+3 Operador $Match
+
+db.Schedules.aggregate([
+  { $match: { delay_minutes: 60 } }
+])
+
+1 Operador $Count
+
+db.Attendees.aggregate([
+  { $count: "total_asistentes" }
+])
+
+2 Operador $Count
+
+db.Attendees.aggregate([
+  { $match: { attendee_id: "a1" } },
+  { $count: "coincidencias_id_especifico" }
+])
+
+3 Operador $Count
+
+db.Attendees.aggregate([
+  { $match: { name: "Alice Johnson" } },
+  { $count: "total_usuarios_Alice" }
+])
+
+1 Operador $Group
+
+db.Tickets.aggregate([
+  {
+    $group: {
+      _id: "$ticket_type_id",
+      total_boletos: { $sum: 1 }
+    }
+  }
+])
+
+2 Operador $Group
+
+db.Tickets.aggregate([
+  {
+    $group: {
+      _id: "$has_food_access",
+      cantidad: { $sum: 1 }
+    }
+  }
+])
+
+3 Operador $Group
+
+db.Tickets.aggregate([
+  {
+    $group: {
+      _id: "$status",
+      conteo_por_estatus: { $sum: 1 }
+    }
+  }
+])
