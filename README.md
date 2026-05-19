@@ -439,7 +439,67 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 <br/>
 
 ![MongoDB](https://img.shields.io/badge/Powered%20by-MongoDB-13AA52?style=for-the-badge&logo=mongodb&logoColor=white)
-&nbsp;
-![Rock](https://img.shields.io/badge/Rock%20Festival-2026-000000?style=for-the-badge)
 
-</div>
+
+
+
+
+
+# 🎟️ Event Ticket System (Online Reservation Platform)
+
+## 📌 Project Overview
+**Event Ticket System** is a comprehensive backend solution built on NoSQL (**MongoDB**) technology designed to manage the complete lifecycle of ticket reservations for high-demand online events. The system centralizes attendee management, financial transaction processing, and real-time inventory logistics.
+
+Unlike traditional relational database systems, this platform leverages the flexibility of the document model to adapt event structures (e.g., VIP tiers, general admission, early bird) dynamically without downtime, enabling seamless scaling during peak sales windows.
+
+---
+
+## ⚙️ Technical Specifications
+
+| Category | Specification | Description / Purpose |
+| :--- | :--- | :--- |
+| **Data Architecture** | NoSQL Document-Oriented | Enables flexible schemas for diverse event types without costly schema migrations. |
+| **Query Engine** | `find()` / `findOne()` | Optimizes data retrieval depending on whether a collection list or a single record is needed. |
+| **Logical Operators** | `$and`, `$or`, `$not` | Builds complex filtering rules for user segmentation, verification, and security. |
+| **Comparison Operators** | `$gt`, `$lt`, `$in`, `$ne` | Manages ticket price ranges, event dates, and filters out failed transaction states. |
+| **Data Integrity** | Atomic Mutations | Utilizes `$set`, `$inc`, and `$push` to eliminate race conditions during concurrent mass sales. |
+| **Scalability** | MongoDB Atlas (Cloud) | Elastic cloud infrastructure capable of handling massive traffic spikes during pre-sales. |
+
+---
+
+## 🛠️ Infrastructure & Troubleshooting Guide
+
+As a **Query Developer**, maintaining the connection and data flow between the application environment, **MongoDB Compass**, and **MongoDB Atlas** is vital. Below is the technical guide for handling common issues:
+
+| Problem / Error Message | Root Cause | Resolution Applied |
+| :--- | :--- | :--- |
+| **Error: "Authentication Failed"** | Incorrect password or leaving `< >` brackets in the connection string. | Verify credentials in Atlas *Database Access* and paste the password cleanly into Compass without extra symbols. |
+| **Error: "Connection Timeout"** | The local network IP address is not whitelisted in the cloud firewall. | Navigate to *Network Access* in Atlas and add the current public IP address or enable global access (`0.0.0.0/0`). |
+| **Query returns zero data** | Syntax error in the JSON filter or casing mismatch in the field names. | Validate that field attributes (e.g., `total_amount`) match the exact character casing present in the source documents. |
+| **Folder not uploading to GitHub** | Attempting to push an empty folder structure to the repository. | Ensure every directory (`data/`, `queries/`, `scripts/`) contains at least one target tracking file (e.g., `seeds.json` or `.mongodb`). |
+| **`findOne()` returns `null`** | The specific search criteria does not exist within the active collection. | Run a broad `find()` query first to confirm data existence, then isolate the unique parameter for the `findOne()` look-up. |
+
+---
+
+## 🎯 Product Goal
+> "To build an online reservation platform (*Event Ticket System*) for mass ticket sales, capable of processing concurrent transactions with zero data loss, guaranteeing real-time capacity consistency, and offering advanced financial auditing tools through optimized NoSQL queries."
+
+---
+
+## 📑 Product Backlog
+
+### 🧱 Epic 1: Capacity Management and Logistics
+**Requested by:** *Operations Director* **Focus:** Strict control of ticket inventory and secure access management to prevent overbooking.
+
+#### PBI-01: Atomic Inventory Control and Overbooking Prevention
+* **User Story:**
+  * **As an** Event Organizer (Organizing Committee),
+  * **I want to** update the available ticket inventory by subtracting capacity atomically and immediately with each successful purchase,
+  * **So that** the venue's capacity limit is respected and ticket oversales are legally avoided.
+* **Acceptance Criteria (Gherkin Syntax):**
+  ```gherkin
+  Given that the event "Concierto 2026" has an available capacity of 10 tickets
+  When a customer executes a digital payment for 1 ticket
+  Then the database must apply the $inc operator with a value of -1 on the disponibles field
+  And the event capacity must update immediately to 9
+  And no other execution thread should be able to read the previous value during the transaction
