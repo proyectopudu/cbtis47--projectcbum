@@ -1,0 +1,120 @@
+1 Operador $lookup
+
+db.Tickets.aggregate([
+  {
+    $lookup: {
+      from: "Attendees",
+      localField: "attendee_id",
+      foreignField: "attendee_id",
+      as: "datos_del_asistente"
+    }
+  }
+])
+
+2 operador $lookup
+db.Tickets.aggregate([
+  {
+    $lookup: {
+      from: "Transaction",
+      localField: "transaction_id",
+      foreignField: "transaction_id",
+      as: "datos_de_la_transaccion"
+    }
+  }
+])
+
+3 operador $lookup
+db.Tickets.aggregate([
+  {
+    $lookup: {
+      from: "TicketType",
+      localField: "ticket_type_id",
+      foreignField: "ticket_type_id", // O '_id' si mapeaste el código directo al ID de esa colección
+      as: "detalles_del_tipo_ticket"
+    }
+  }
+])
+
+1 operador $project
+db.Attendees.aggregate([
+  {
+    $project: {
+      _id: 0,          // Con 0 ocultamos el ObjectId por completo
+      name: 1,         // Con 1 indicamos que SÍ queremos que se muestre
+      email: 1         // Con 1 indicamos que SÍ queremos que se muestre
+    }
+  }
+])
+
+2 operador $project
+db.Attendees.aggregate([
+  {
+    $project: {
+      _id: 0,                                // Ocultamos el ID original
+      id: "$attendee_id",                    // Renombramos 'attendee_id' a simplemente 'id'
+      nombre_usuario: "$name",               // Cambiamos 'name' por 'nombre_usuario'
+      correo_contacto: "$email"              // Cambiamos 'email' por 'correo_contacto'
+    }
+  }
+])
+
+3 operador $ project
+db.Attendees.aggregate([
+  {
+    $project: {
+      attendee_id: 1,
+      nombre_mayusculas: { $toUpper: "$name" }, // Convierte el nombre a MAYÚSCULAS
+      sistema_origen: { $literal: "Ticket App v1" }, // Agrega un texto fijo a todos los registros
+      fecha_consulta: { $literal: "2026-05-19" } // Agrega la fecha actual del reporte
+    }
+  }
+])
+
+1 operador $ sort
+db.Schedules.aggregate([
+  {
+    $sort: { 
+      start_time: 1   // Ordena de menor a mayor por la hora de inicio ("18:00", luego "19:00", luego "20:00")
+    }
+  }
+])
+
+2 operador $ sort
+db.Schedules.aggregate([
+  {
+    $sort: { 
+      delay_minutes: -1  // Ordena de mayor a menor según los minutos de retraso
+    }
+  }
+])
+
+3 operador $ sort
+db.Schedules.aggregate([
+  {
+    $sort: { 
+      concert_id: 1,      // Primero agrupa los horarios por el ID del concierto (c1, c2, c3...)
+      start_time: 1       // Y dentro de cada concierto, ordena las actividades cronológicamente
+    }
+  }
+])
+
+1 operador $limit
+db.Transaction.aggregate([
+  {
+    $limit: 1  // El pipeline se detiene inmediatamente después de encontrar el primer documento
+  }
+])
+
+2 operador $limit
+db.Transaction.aggregate([
+  {
+    $limit: 2  // Restringe la salida para que el servidor mande solo los primeros dos registros
+  }
+])
+
+3 operador $limit
+db.Transaction.aggregate([
+  {
+    $limit: 3  // Limita el resultado al tamaño exacto del bloque de tu interfaz
+  }
+])
