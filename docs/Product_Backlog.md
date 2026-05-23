@@ -1,111 +1,318 @@
+# 🎟️ Event Ticket System — Product Backlog
 
-# 🎯 Product Goal
+![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)
+![Database](https://img.shields.io/badge/database-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Language](https://img.shields.io/badge/language-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)
 
-> "To build an online reservation platform (Event Ticket System) for mass ticket sales, capable of processing concurrent transactions with zero data loss, guaranteeing real-time capacity consistency, and offering advanced financial auditing tools through optimized NoSQL queries."
+---
 
----germain
+## 🎯 Product Goal
 
-# 📑 Product Backlog
+> Build an online reservation platform for mass ticket sales, capable of processing concurrent transactions with **zero data loss**, guaranteeing **real-time capacity consistency**, and offering advanced financial auditing tools through optimized NoSQL queries.
 
-## 🧱 Epic 1: Capacity Management and Logistics (Requested by: Operations Director)
+---
 
-This epic addresses the strict control of ticket inventory and secure access management to prevent overbooking.
+## 📋 Table of Contents
+
+- [Epic 1 — Capacity Management and Logistics](#-epic-1-capacity-management-and-logistics)
+  - [PBI-01: Atomic Inventory Control](#pbi-01-atomic-inventory-control-and-overbooking-prevention)
+  - [PBI-02: Identity Validation at Access Points](#pbi-02-search-and-identity-validation-at-access-points)
+- [Epic 2 — Auditing, Reporting, and Financial Security](#-epic-2-auditing-reporting-and-financial-security)
+  - [PBI-03: Revenue Channel Segmentation](#pbi-03-financial-revenue-channel-segmentation)
+  - [PBI-04: Anomalous Transaction Reporting](#pbi-04-isolation-and-reporting-of-anomalous-transactions)
+- [Epic 3 — Traceability and Data Quality](#-epic-3-traceability-and-data-quality)
+  - [PBI-05: Internal Modification History](#pbi-05-internal-modification-history-in-tickets)
+
+---
+
+## 🧱 Epic 1: Capacity Management and Logistics
+
+![Owner](https://img.shields.io/badge/requested_by-Operations_Director-6366f1?style=flat-square)
+
+Strict control of ticket inventory and secure access management to prevent overbooking at all event venues.
+
+---
 
 ### PBI-01: Atomic Inventory Control and Overbooking Prevention
 
-```text
-User Story:
-As an Event Organizer (Organizing Committee),
-I want to update the available ticket inventory by subtracting capacity atomically and immediately with each successful purchase,
-So that the venue's capacity limit is respected and ticket oversales are legally avoided.
+![Priority](https://img.shields.io/badge/priority-critical-red?style=flat-square)
+![Operator](https://img.shields.io/badge/MongoDB_operator-%24inc-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
-Acceptance Criteria:
-Given that the event "Concierto 2026" has an available capacity of 10 tickets,
-When a customer executes a digital payment for 1 ticket,
-Then the database must apply the $inc operator with a value of -1 on the disponibles field,
-And the event capacity must update immediately to 9,
-And no other execution thread should be able to read the previous value during the transaction.
+#### User Story
 
-Unit Testing Approach:
-Test: Execute 50 simultaneous purchase requests on an event with a capacity limited to 40.
-The test is successful if the numerical field decreases exactly to 0 and rejects the 10 remaining requests, validating the atomicity of $inc.
+> **As** an Event Organizer (Organizing Committee),  
+> **I want** to update the available ticket inventory by subtracting capacity atomically and immediately with each successful purchase,  
+> **So that** the venue's capacity limit is respected and ticket oversales are legally avoided.
 
-PBI-02: Search and Identity Validation at Access Points
+#### Acceptance Criteria
 
-User Story:
-As an Event Staff Receptionist,
-I want to search for an attendee using their unique identifier within the database,
-So that I can validate their ticket at the access gate in less than 50ms and speed up the entrance queue.
+| # | Given | When | Then |
+|---|-------|------|------|
+| 1 | Event `"Concierto 2026"` has `disponibles: 10` | A customer completes a digital payment for 1 ticket | The `$inc` operator is applied with `-1` on the `disponibles` field |
+| 2 | Transaction is being processed | Any concurrent read occurs | No other thread can read the previous value mid-transaction |
+| 3 | Decrement is applied | Query resolves | Capacity updates **immediately** to `9` |
 
-Acceptance Criteria:
-Given that the user with the attendee ID "a1" and name "Alice Johnson" exists in the asistentes collection,
-When the staff enters "a1" into the search terminal at the access point,
-Then the query must be executed using the findOne() method,
-And it must return a direct JSON object { } containing Alice's data,
-And it must not return a list or array [] to avoid delays in the scanner software.
+#### MongoDB Query
 
-Unit Testing Approach:
-Test: Invoke the search function passing an existing parameter. Verify that the returned data type is an object
-(typeof resultado === 'object'), that it is not null (null), and that the MongoDB server response time is below the established technical threshold.
+```js
+// Atomically decrement available tickets
+db.events.findOneAndUpdate(
+  { name: "Concierto 2026", disponibles: { $gt: 0 } },
+  { $inc: { disponibles: -1 } },
+  { returnDocument: "after" }
+);
+```
 
-🧱 Epic 2: Auditing, Reporting, and Financial Security (Requested by: Finance Director)
-This epic focuses on the use of advanced comparison and logical operators to ensure monetary transparency.
+#### Unit Test Approach
 
-PBI-03: Financial Revenue Channel Segmentation
+```js
+// Test: 50 simultaneous requests against a capacity of 40
+// ✅ Pass condition: `disponibles` reaches exactly 0; 10 requests are rejected.
+// Validates atomicity of $inc under concurrent load.
+test("should reject excess purchases and not go below zero", async () => {
+  const requests = Array(50).fill(null).map(() => purchaseTicket("Concierto 2026"));
+  const results = await Promise.allSettled(requests);
 
-User Story:
-As a Finance Director (CFO) of the Ticketing Company,
-I want to filter transactions based on a list of approved banking payment methods,
-So that I can calculate exact bank commissions and segment revenue at the end of the day.
+  const fulfilled = results.filter(r => r.status === "fulfilled").length;
+  const event = await db.events.findOne({ name: "Concierto 2026" });
 
-Acceptance Criteria:
-Given that there are transactions registered with payment methods "pm1" (Card), "pm2" (Bank Transfer), and "pm3" (Cash),
-When the financial analyst executes the query using the array operator $in: ["pm1", "pm2"],
-Then the system must return only the documents whose method_id field matches those values,
-And it must automatically exclude all transactions made with the "pm3" method.
+  expect(fulfilled).toBe(40);
+  expect(event.disponibles).toBe(0);
+});
+```
 
-Unit Testing Approach:
-Test: Insert controlled data into the Transaction collection.
-Execute the query with the $in operator and verify through an assertion that no document in the result contains the value "pm3" in the method_id attribute.
+---
 
+### PBI-02: Search and Identity Validation at Access Points
 
-PBI-04: Isolation and Reporting of Anomalous Transactions
+![Priority](https://img.shields.io/badge/priority-high-orange?style=flat-square)
+![Operator](https://img.shields.io/badge/MongoDB_method-findOne()-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
-User Story:
-As a System Security Auditor,
-I want to isolate transaction documents whose amounts differ from the established standard price or whose statuses are unsuccessful,
-So that I can identify financial anomalies or attempted fraud in online transactions.
+#### User Story
 
-Acceptance Criteria:
-Given a financial dataset of transactions with varying amounts of 200 and 500 units,
-When the Query Developer executes the query using the inverse logic "total_amount": { $not: { $eq: 200 } },
-Then the MongoDB console must hide records with a value of 200,
-And it must display on screen documents with higher amounts such as 500 or null values,
-And the response must allow the auditor to export the suspicious records to a review file.
+> **As** an Event Staff Receptionist,  
+> **I want** to search for an attendee using their unique identifier within the database,  
+> **So that** I can validate their ticket at the access gate in under 50 ms and speed up the entrance queue.
 
-Unit Testing Approach:
-Test: Evaluate the exclusion query against a test suite. The test passes if,
-when introducing 5 documents (three with a value of 200 and two with a value of 500), the final query count returns exactly 2 documents,
-ensuring that the $not operator performed the discard properly.
+#### Acceptance Criteria
 
+| # | Given | When | Then |
+|---|-------|------|------|
+| 1 | Attendee `"a1"` (Alice Johnson) exists in the `asistentes` collection | Staff enters `"a1"` into the search terminal | Query executes via `findOne()` |
+| 2 | Query resolves | Scanner software reads the response | Returns a **JSON object** `{}`, not an array `[]` |
+| 3 | Record exists | Response time is measured | MongoDB response is **below 50 ms** |
 
-🧱 Epic 3: Traceability and Data Quality (Repository Maintenance)
-This epic ensures that documentation, seeds, and history logs maintain a high technical standard within the development environment.
+#### MongoDB Query
 
-PBI-05: Internal Modification History in Tickets
+```js
+// Retrieve a single attendee by unique ID
+const attendee = await db.asistentes.findOne({ attendee_id: "a1" });
+// Returns: { attendee_id: "a1", name: "Alice Johnson", ... }
+```
 
-User Story:
-As a Technical Support Engineer,
-I want to add informative notes or change logs within the same reservation document,
-So that full traceability of a ticket's lifecycle is maintained without fragmenting the database into multiple tables.
+#### Unit Test Approach
 
-Acceptance Criteria:
-Given that a ticket in "PENDING" status requires a support clarification,
-When the technician adds the comment "Cliente reporta problemas con el banco",
-Then the Query Developer must execute a statement using the $push operator,
-And the comment must be appended to the end of an internal array named logs,
-And the user's previous information must remain intact without suffering any overwrites.
+```js
+// ✅ Pass condition: result is a non-null object, not an array, under 50ms.
+test("should return a single attendee object within 50ms", async () => {
+  const start = Date.now();
+  const result = await db.asistentes.findOne({ attendee_id: "a1" });
+  const elapsed = Date.now() - start;
 
-Unit Testing Approach:
-Test: Execute the $push update script on a test document. Verify that the logs property is an instance of an array (Array.isArray())
-and that its length (length) increases exactly by 1 after the operation.
+  expect(typeof result).toBe("object");
+  expect(result).not.toBeNull();
+  expect(Array.isArray(result)).toBe(false);
+  expect(elapsed).toBeLessThan(50);
+});
+```
+
+---
+
+## 🧱 Epic 2: Auditing, Reporting, and Financial Security
+
+![Owner](https://img.shields.io/badge/requested_by-Finance_Director_(CFO)-6366f1?style=flat-square)
+
+Advanced comparison and logical operators to ensure full monetary transparency and fraud detection.
+
+---
+
+### PBI-03: Financial Revenue Channel Segmentation
+
+![Priority](https://img.shields.io/badge/priority-high-orange?style=flat-square)
+![Operator](https://img.shields.io/badge/MongoDB_operator-%24in-47A248?style=flat-square&logo=mongodb&logoColor=white)
+
+#### User Story
+
+> **As** a Finance Director (CFO) of the Ticketing Company,  
+> **I want** to filter transactions based on a list of approved banking payment methods,  
+> **So that** I can calculate exact bank commissions and segment revenue at the end of the day.
+
+#### Acceptance Criteria
+
+| `method_id` | Method | Included in query? |
+|-------------|--------|--------------------|
+| `pm1` | Card | ✅ Yes |
+| `pm2` | Bank Transfer | ✅ Yes |
+| `pm3` | Cash | ❌ Excluded |
+
+#### MongoDB Query
+
+```js
+// Filter transactions to approved banking channels only
+db.transactions.find({
+  method_id: { $in: ["pm1", "pm2"] }
+});
+```
+
+#### Unit Test Approach
+
+```js
+// ✅ Pass condition: no result document contains method_id "pm3".
+test("should only return card and bank transfer transactions", async () => {
+  const results = await db.transactions
+    .find({ method_id: { $in: ["pm1", "pm2"] } })
+    .toArray();
+
+  const hasCash = results.some(doc => doc.method_id === "pm3");
+  expect(hasCash).toBe(false);
+});
+```
+
+---
+
+### PBI-04: Isolation and Reporting of Anomalous Transactions
+
+![Priority](https://img.shields.io/badge/priority-critical-red?style=flat-square)
+![Operator](https://img.shields.io/badge/MongoDB_operator-%24not-47A248?style=flat-square&logo=mongodb&logoColor=white)
+
+#### User Story
+
+> **As** a System Security Auditor,  
+> **I want** to isolate transaction documents whose amounts differ from the established standard price or whose statuses are unsuccessful,  
+> **So that** I can identify financial anomalies or attempted fraud in online transactions.
+
+#### Acceptance Criteria
+
+| `total_amount` | Returned? |
+|----------------|-----------|
+| `200` (standard price) | ❌ Excluded |
+| `500` (anomalous) | ✅ Returned |
+| `null` | ✅ Returned |
+
+#### MongoDB Query
+
+```js
+// Isolate all transactions that deviate from the standard amount
+db.transactions.find({
+  total_amount: { $not: { $eq: 200 } }
+});
+```
+
+#### Unit Test Approach
+
+```js
+// Dataset: 3 docs with amount 200, 2 docs with amount 500
+// ✅ Pass condition: query returns exactly 2 documents.
+test("should return exactly 2 anomalous transactions", async () => {
+  const results = await db.transactions
+    .find({ total_amount: { $not: { $eq: 200 } } })
+    .toArray();
+
+  expect(results.length).toBe(2);
+  results.forEach(doc => expect(doc.total_amount).not.toBe(200));
+});
+```
+
+---
+
+## 🧱 Epic 3: Traceability and Data Quality
+
+![Owner](https://img.shields.io/badge/requested_by-Repository_Maintenance-6366f1?style=flat-square)
+
+Ensures that documentation, seed data, and history logs maintain a high technical standard within the development environment.
+
+---
+
+### PBI-05: Internal Modification History in Tickets
+
+![Priority](https://img.shields.io/badge/priority-medium-yellow?style=flat-square)
+![Operator](https://img.shields.io/badge/MongoDB_operator-%24push-47A248?style=flat-square&logo=mongodb&logoColor=white)
+
+#### User Story
+
+> **As** a Technical Support Engineer,  
+> **I want** to add informative notes or change logs within the same reservation document,  
+> **So that** full traceability of a ticket's lifecycle is maintained without fragmenting the database into multiple tables.
+
+#### Acceptance Criteria
+
+| # | Given | When | Then |
+|---|-------|------|------|
+| 1 | A ticket is in `"PENDING"` status | A technician adds `"Cliente reporta problemas con el banco"` | A `$push` operation appends the entry to the `logs` array |
+| 2 | Push executes | Document is read back | `logs` array contains the new entry at the **end** |
+| 3 | Update completes | All other fields are inspected | No existing user data is overwritten |
+
+#### MongoDB Query
+
+```js
+// Append a support note to the ticket's internal log
+db.tickets.updateOne(
+  { ticket_id: "TKT-001" },
+  {
+    $push: {
+      logs: {
+        message: "Cliente reporta problemas con el banco",
+        timestamp: new Date(),
+        author: "support-engineer"
+      }
+    }
+  }
+);
+```
+
+#### Unit Test Approach
+
+```js
+// ✅ Pass condition: logs is an array whose length increases by exactly 1.
+test("should append a log entry without overwriting existing data", async () => {
+  const before = await db.tickets.findOne({ ticket_id: "TKT-001" });
+  const previousLength = before.logs.length;
+
+  await db.tickets.updateOne(
+    { ticket_id: "TKT-001" },
+    { $push: { logs: { message: "Cliente reporta problemas con el banco" } } }
+  );
+
+  const after = await db.tickets.findOne({ ticket_id: "TKT-001" });
+
+  expect(Array.isArray(after.logs)).toBe(true);
+  expect(after.logs.length).toBe(previousLength + 1);
+  expect(after.name).toBe(before.name); // original data intact
+});
+```
+
+---
+
+## 📊 Backlog Summary
+
+| PBI | Epic | Priority | MongoDB Operator | Story Points |
+|-----|------|----------|-----------------|--------------|
+| PBI-01 | Capacity Management | 🔴 Critical | `$inc` | 8 |
+| PBI-02 | Capacity Management | 🟠 High | `findOne()` | 5 |
+| PBI-03 | Financial Security | 🟠 High | `$in` | 5 |
+| PBI-04 | Financial Security | 🔴 Critical | `$not` / `$eq` | 8 |
+| PBI-05 | Traceability | 🟡 Medium | `$push` | 3 |
+
+---
+
+## 🛠️ Tech Stack
+
+![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat-square&logo=node.js&logoColor=white)
+![Jest](https://img.shields.io/badge/Testing-Jest-C21325?style=flat-square&logo=jest&logoColor=white)
+
+---
+
+*Last updated: May 2026*
