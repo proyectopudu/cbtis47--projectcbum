@@ -384,7 +384,7 @@ test("should handle ticket not found and network errors", async () => {
 
 -----
 
-## 📊 Backlog Summary
+## 📊 Backlog  Summary
 
 |PBI   |Epic               |Priority  |MongoDB Operator|Story Points|
 |------|-------------------|----------|----------------|------------|
