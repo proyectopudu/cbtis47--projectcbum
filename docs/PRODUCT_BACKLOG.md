@@ -85,14 +85,15 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 > **I want** to filter transactions based on a list of approved banking payment methods,  
 > **So that** I can calculate exact bank commissions and segment revenue at the end of the day.
 
+
+
 #### Acceptance Criteria
 
-|`method_id`|Method       |Included in query?|
-|-----------|-------------|------------------|
-|`pm1`      |Card         |✅ Yes             |
-|`pm2`      |Bank Transfer|✅ Yes             |
-|`pm3`      |Cash         |❌ Excluded        |
-
+| # | Given | When | Then |
+|---|-------|------|------|
+| 1 | Payment methods `pm1` (Card) and `pm2` (Bank Transfer) are approved | CFO runs the transaction report query | Only transactions with `method_id` `pm1` or `pm2` are returned |
+| 2 | Payment method `pm3` (Cash) exists in the database | CFO runs the transaction report query | Transactions with `method_id` `pm3` are excluded from results |
+| 3 | Query is executed with the approved method filter | Results are returned | All returned records belong only to Card or Bank Transfer methods |
 
 
 -----
@@ -105,15 +106,13 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 > **As** a System Security Auditor,  
 > **I want** to isolate transaction documents whose amounts differ from the established standard price or whose statuses are unsuccessful,  
 > **So that** I can identify financial anomalies or attempted fraud in online transactions.
-
 #### Acceptance Criteria
 
-|`total_amount`        |Returned? |
-|----------------------|----------|
-|`200` (standard price)|❌ Excluded|
-|`500` (anomalous)     |✅ Returned|
-|`null`                |✅ Returned|
-
+| # | Given | When | Then |
+|---|-------|------|------|
+| 1 | Standard price is defined as `200` | Auditor runs the anomaly detection query | Transactions with `total_amount = 200` are excluded from results |
+| 2 | A transaction with `total_amount = 500` exists (anomalous value) | Auditor runs the anomaly detection query | That transaction is returned as a flagged anomaly |
+| 3 | A transaction with `total_amount = null` exists | Auditor runs the anomaly detection query | That transaction is also returned, as the amount cannot be validated |
 
 
 
