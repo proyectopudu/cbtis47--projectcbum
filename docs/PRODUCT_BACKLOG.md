@@ -24,7 +24,6 @@
 
 ## 🧱 Epic 1: Capacity Management and Logistics
 
-![Owner](https://img.shields.io/badge/requested_by-Operations_Director-6366f1?style=flat-square)
 
 Strict control of ticket inventory and secure access management to prevent overbooking at all event venues.
 
@@ -32,8 +31,6 @@ Strict control of ticket inventory and secure access management to prevent overb
 
 ### PBI-01: Atomic Inventory Control and Overbooking Prevention
 
-![Priority](https://img.shields.io/badge/priority-critical-red?style=flat-square)
-![Operator](https://img.shields.io/badge/MongoDB_operator-%24inc-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
 #### User Story
 
