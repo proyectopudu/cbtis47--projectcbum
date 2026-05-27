@@ -1,10 +1,5 @@
 # 🎟️ Event Ticket System — Product Backlog
 
-![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)
-![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)
-![Database](https://img.shields.io/badge/database-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![Language](https://img.shields.io/badge/language-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)
 
 -----
 
@@ -75,31 +70,7 @@ Feature: Atomic Inventory Control
     Then the system throws the error "Error de red, intente más tarde"
 ```
 
-#### MongoDB Query
 
-```js
-async function purchaseTicket(eventName) {
-  try {
-    const result = await db.events.findOneAndUpdate(
-      { name: eventName, disponibles: { $gt: 0 } },
-      { $inc: { disponibles: -1 } },
-      { returnDocument: "after" }
-    );
-
-    if (!result) {
-      throw new Error("Boleto agotado");
-    }
-
-    return result;
-
-  } catch (error) {
-    if (error.message === "Boleto agotado") {
-      throw error;
-    }
-    throw new Error("Error de red, intente más tarde");
-  }
-}
-```
 
 #### Unit Test Approach
 
