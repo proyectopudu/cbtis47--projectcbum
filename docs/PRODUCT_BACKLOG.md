@@ -37,7 +37,7 @@ Strict control of ticket inventory and secure access management to prevent overb
 > **As** an Event Organizer (Organizing Committee),  
 > **I want** to update the available ticket inventory by subtracting capacity atomically and immediately with each successful purchase,  
 > **So that** the venue’s capacity limit is respected and ticket oversales are legally avoided.
-
+ 
 #### Acceptance Criteria
 
 |#|Given                                         |When                                               |Then                                                               |
