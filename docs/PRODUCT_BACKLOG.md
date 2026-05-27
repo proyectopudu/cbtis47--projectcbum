@@ -40,11 +40,11 @@ Strict control of ticket inventory and secure access management to prevent overb
  
 #### Acceptance Criteria
 
-|#|Given                                         |When                                               |Then                                                               |
-|-|----------------------------------------------|---------------------------------------------------|-------------------------------------------------------------------|
-|1|Event `"Concierto 2026"` has `disponibles: 10`|A customer completes a digital payment for 1 ticket|The `$inc` operator is applied with `-1` on the `disponibles` field|
-|2|Transaction is being processed                |Any concurrent read occurs                         |No other thread can read the previous value mid-transaction        |
-|3|Decrement is applied                          |Query resolves                                     |Capacity updates **immediately** to `9`                            |
+|#|Given                                                        |When                                                          |Then                                                                 |
+|-|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------|
+|1|Event `"Concierto 2026"` has `disponibles: 10`               |A customer completes a successful payment for 1 ticket        |The system immediately subtracts `1` from the available count        |
+|2|A purchase is being processed                                |Another user tries to check availability at the same time     |The system does not show the old availability until transaction ends |
+|3|The subtraction is applied                                   |The operation finishes                                        |Available tickets now show `9` in real time                          |
 
 
 -----
@@ -60,12 +60,11 @@ Strict control of ticket inventory and secure access management to prevent overb
 
 #### Acceptance Criteria
 
-|#|Given                                                                |When                                        |Then                                             |
-|-|---------------------------------------------------------------------|--------------------------------------------|-------------------------------------------------|
-|1|Attendee `"a1"` (Alice Johnson) exists in the `asistentes` collection|Staff enters `"a1"` into the search terminal|Query executes via `findOne()`                   |
-|2|Query resolves                                                       |Scanner software reads the response         |Returns a **JSON object** `{}`, not an array `[]`|
-|3|Record exists                                                        |Response time is measured                   |MongoDB response is **below 50 ms**              |
-
+|#|Given                                                        |When                                                          |Then                                                                 |
+|-|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------|
+|1|Attendee `"Alice Johnson"` is registered in the system       |Staff scans or types her ID at the entrance terminal          |The system finds her record instantly via `findOne()`                |
+|2|The record is found                                          |The scanner reads the response                                |The system returns a **JSON object** `{}`, not an array `[]`         |
+|3|The lookup is triggered                                      |Response time is measured                                     |The result appears in **below 50 ms**                                |
 
 -----
 
@@ -89,13 +88,13 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 
 #### Acceptance Criteria
 
-| # | Given | When | Then |
-|---|-------|------|------|
-| 1 | Payment methods `pm1` (Card) and `pm2` (Bank Transfer) are approved | CFO runs the transaction report query | Only transactions with `method_id` `pm1` or `pm2` are returned |
-| 2 | Payment method `pm3` (Cash) exists in the database | CFO runs the transaction report query | Transactions with `method_id` `pm3` are excluded from results |
-| 3 | Query is executed with the approved method filter | Results are returned | All returned records belong only to Card or Bank Transfer methods |
 
 
+|#|Given                                                        |When                                                          |Then                                                                 |
+|-|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------|
+|1|Card and Bank Transfer are the approved payment methods      |The CFO generates the end-of-day report                       |Only transactions from those two methods appear                      |
+|2|Some transactions were paid in cash                          |The CFO generates the end-of-day report                       |Cash transactions are **not** included in the report                 |
+|3|The report filter is applied                                 |Results are displayed                                         |Every record shown belongs exclusively to Card or Bank Transfer      |
 -----
 
 ### PBI-04: Isolation and Reporting of Anomalous Transactions
@@ -106,14 +105,14 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 > **As** a System Security Auditor,  
 > **I want** to isolate transaction documents whose amounts differ from the established standard price or whose statuses are unsuccessful,  
 > **So that** I can identify financial anomalies or attempted fraud in online transactions.
+
 #### Acceptance Criteria
 
-| # | Given | When | Then |
-|---|-------|------|------|
-| 1 | Standard price is defined as `200` | Auditor runs the anomaly detection query | Transactions with `total_amount = 200` are excluded from results |
-| 2 | A transaction with `total_amount = 500` exists (anomalous value) | Auditor runs the anomaly detection query | That transaction is returned as a flagged anomaly |
-| 3 | A transaction with `total_amount = null` exists | Auditor runs the anomaly detection query | That transaction is also returned, as the amount cannot be validated |
-
+|#|Given                                                        |When                                                          |Then                                                                 |
+|-|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------|
+|1|The standard ticket price is `200`                           |The auditor runs the anomaly report                           |Transactions with exactly `total_amount = 200` are **not** flagged   |
+|2|A transaction with `total_amount = 500` exists               |The auditor runs the anomaly report                           |That transaction is highlighted as suspicious                        |
+|3|A transaction with `total_amount = null` exists              |The auditor runs the anomaly report                           |That transaction is also flagged, as it cannot be verified           |
 
 
 
@@ -136,12 +135,11 @@ Ensures that documentation, seed data, and history logs maintain a high technica
 
 #### Acceptance Criteria
 
-|#|Given                            |When                                                        |Then                                                     |
-|-|---------------------------------|------------------------------------------------------------|---------------------------------------------------------|
-|1|A ticket is in `"PENDING"` status|A technician adds `"Cliente reporta problemas con el banco"`|A `$push` operation appends the entry to the `logs` array|
-|2|Push executes                    |Document is read back                                       |`logs` array contains the new entry at the **end**       |
-|3|Update completes                 |All other fields are inspected                              |No existing user data is overwritten                     |
-
+|#|Given                                                        |When                                                          |Then                                                                 |
+|-|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------|
+|1|A ticket is in `"PENDING"` status                            |A technician adds `"Customer reported a bank issue"`          |The note is appended to the ticket's `logs` array via `$push`        |
+|2|The note is saved                                            |The ticket is opened again                                    |The new note appears at the **end** of the history list              |
+|3|The update is complete                                       |All other ticket fields are checked                           |No existing customer data was modified or lost                       |
 
 ## Backlog  Summary
 
