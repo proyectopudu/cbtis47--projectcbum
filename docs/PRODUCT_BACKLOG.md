@@ -46,53 +46,6 @@ Strict control of ticket inventory and secure access management to prevent overb
 |2|Transaction is being processed                |Any concurrent read occurs                         |No other thread can read the previous value mid-transaction        |
 |3|Decrement is applied                          |Query resolves                                     |Capacity updates **immediately** to `9`                            |
 
-#### Gherkin Scenarios
-
-```gherkin
-Feature: Atomic Inventory Control
-
-  Scenario: Successful purchase decrements inventory
-    Given the event "Concierto 2026" has disponibles: 10
-    When a customer completes the payment for 1 ticket
-    Then the disponibles field is updated to 9
-
-  Scenario: Purchase rejected when inventory is exhausted
-    Given the event "Concierto 2026" has disponibles: 0
-    When a customer attempts to purchase a ticket
-    Then the system throws the error "Boleto agotado"
-
-  Scenario: Network failure during purchase
-    Given the event "Concierto 2026" has disponibles: 10
-    When a network error occurs during the transaction
-    Then the system throws the error "Error de red, intente más tarde"
-```
-
-
-
-#### Unit Test Approach
-
-```js
-test("should reject excess purchases and not go below zero", async () => {
-  const requests = Array(50).fill(null).map(() => purchaseTicket("Concierto 2026"));
-  const results = await Promise.allSettled(requests);
-
-  const fulfilled = results.filter(r => r.status === "fulfilled").length;
-  const event = await db.events.findOne({ name: "Concierto 2026" });
-
-  expect(fulfilled).toBe(40);
-  expect(event.disponibles).toBe(0);
-});
-
-test("should handle sold out and network errors", async () => {
-  await db.events.updateOne({ name: "Concierto 2026" }, { $set: { disponibles: 0 } });
-  await expect(purchaseTicket("Concierto 2026"))
-    .rejects.toThrow("Boleto agotado");
-
-  jest.spyOn(db.events, "findOneAndUpdate").mockRejectedValue(new Error("ECONNREFUSED"));
-  await expect(purchaseTicket("Concierto 2026"))
-    .rejects.toThrow("Error de red, intente más tarde");
-});
-```
 
 -----
 
@@ -115,51 +68,6 @@ test("should handle sold out and network errors", async () => {
 |2|Query resolves                                                       |Scanner software reads the response         |Returns a **JSON object** `{}`, not an array `[]`|
 |3|Record exists                                                        |Response time is measured                   |MongoDB response is **below 50 ms**              |
 
-#### Gherkin Scenarios
-
-```gherkin
-Feature: Identity Validation at Access Points
-
-  Scenario: Successful attendee search
-    Given the attendee "a1" exists in the asistentes collection
-    When staff enters "a1" into the search terminal
-    Then the system returns a JSON object in less than 50ms
-
-  Scenario: Attendee not found
-    Given the id "id-inexistente" does not exist in the database
-    When staff performs the search
-    Then the system throws the error "Boleto no encontrado"
-
-  Scenario: Network failure during search
-    Given the search terminal is connected
-    When a network error occurs during the query
-    Then the system throws the error "Error de red, intente más tarde"
-```
-
-
-#### Unit Test Approach
-
-```js
-test("should return a single attendee object within 50ms", async () => {
-  const start = Date.now();
-  const result = await db.asistentes.findOne({ attendee_id: "a1" });
-  const elapsed = Date.now() - start;
-
-  expect(typeof result).toBe("object");
-  expect(result).not.toBeNull();
-  expect(Array.isArray(result)).toBe(false);
-  expect(elapsed).toBeLessThan(50);
-});
-
-test("should handle not found and network errors", async () => {
-  await expect(findAttendee("id-inexistente"))
-    .rejects.toThrow("Boleto no encontrado");
-
-  jest.spyOn(db.asistentes, "findOne").mockRejectedValue(new Error("ECONNREFUSED"));
-  await expect(findAttendee("a1"))
-    .rejects.toThrow("Error de red, intente más tarde");
-});
-```
 
 -----
 
@@ -190,51 +98,7 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 |`pm2`      |Bank Transfer|✅ Yes             |
 |`pm3`      |Cash         |❌ Excluded        |
 
-#### Gherkin Scenarios
 
-```gherkin
-Feature: Financial Revenue Channel Segmentation
-
-  Scenario: Filter approved banking transactions
-    Given transactions exist with method_id "pm1", "pm2" and "pm3"
-    When the CFO runs the banking channel report
-    Then only transactions with "pm1" and "pm2" are returned
-
-  Scenario: No banking transactions available
-    Given no transactions exist with method_id "pm1" or "pm2"
-    When the CFO runs the report
-    Then the system throws "No se encontraron transacciones bancarias"
-
-  Scenario: Network failure during report generation
-    Given the reporting system is connected
-    When a network error occurs during the query
-    Then the system throws the error "Error de red, intente más tarde"
-```
-
-
-
-#### Unit Test Approach
-
-```js
-test("should only return card and bank transfer transactions", async () => {
-  const results = await db.transactions
-    .find({ method_id: { $in: ["pm1", "pm2"] } })
-    .toArray();
-
-  const hasCash = results.some(doc => doc.method_id === "pm3");
-  expect(hasCash).toBe(false);
-});
-
-test("should handle empty results and network errors", async () => {
-  await db.transactions.deleteMany({});
-  await expect(getBankingTransactions())
-    .rejects.toThrow("No se encontraron transacciones bancarias");
-
-  jest.spyOn(db.transactions, "find").mockRejectedValue(new Error("ECONNREFUSED"));
-  await expect(getBankingTransactions())
-    .rejects.toThrow("Error de red, intente más tarde");
-});
-```
 
 -----
 
@@ -257,50 +121,9 @@ test("should handle empty results and network errors", async () => {
 |`500` (anomalous)     |✅ Returned|
 |`null`                |✅ Returned|
 
-#### Gherkin Scenarios
-
-```gherkin
-Feature: Anomalous Transaction Reporting
-
-  Scenario: Detection of anomalous transactions
-    Given transactions exist with amounts 200, 200, 200, 500, 500
-    When the auditor runs the anomaly report
-    Then the system returns exactly 2 documents with amount different from 200
-
-  Scenario: No anomalies detected
-    Given all transactions have amount 200
-    When the auditor runs the report
-    Then the system throws "No se encontraron transacciones anómalas"
-
-  Scenario: Network failure during anomaly detection
-    Given the auditing system is connected
-    When a network error occurs during the query
-    Then the system throws the error "Error de red, intente más tarde"
-```
 
 
-#### Unit Test Approach
 
-```js
-test("should return exactly 2 anomalous transactions", async () => {
-  const results = await db.transactions
-    .find({ total_amount: { $not: { $eq: 200 } } })
-    .toArray();
-
-  expect(results.length).toBe(2);
-  results.forEach(doc => expect(doc.total_amount).not.toBe(200));
-});
-
-test("should handle no anomalies and network errors", async () => {
-  await db.transactions.deleteMany({ total_amount: { $not: { $eq: 200 } } });
-  await expect(getAnomalousTransactions())
-    .rejects.toThrow("No se encontraron transacciones anómalas");
-
-  jest.spyOn(db.transactions, "find").mockRejectedValue(new Error("ECONNREFUSED"));
-  await expect(getAnomalousTransactions())
-    .rejects.toThrow("Error de red, intente más tarde");
-});
-```
 
 -----
 
@@ -331,58 +154,6 @@ Ensures that documentation, seed data, and history logs maintain a high technica
 |2|Push executes                    |Document is read back                                       |`logs` array contains the new entry at the **end**       |
 |3|Update completes                 |All other fields are inspected                              |No existing user data is overwritten                     |
 
-#### Gherkin Scenarios
-
-```gherkin
-Feature: Internal Modification History in Tickets
-
-  Scenario: Add a note to ticket history
-    Given the ticket "TKT-001" exists with status "PENDING"
-    When support adds "Cliente reporta problemas con el banco"
-    Then the logs array increases by 1 entry without modifying existing data
-
-  Scenario: Ticket not found when adding a note
-    Given the ticket "TKT-999" does not exist in the database
-    When support attempts to add a note
-    Then the system throws the error "Boleto no encontrado"
-
-  Scenario: Network failure when adding a note
-    Given the ticket "TKT-001" exists in the database
-    When a network error occurs during the update
-    Then the system throws the error "Error de red, intente más tarde"
-```
-
-
-#### Unit Test Approach
-
-```js
-test("should append a log entry without overwriting existing data", async () => {
-  const before = await db.tickets.findOne({ ticket_id: "TKT-001" });
-  const previousLength = before.logs.length;
-
-  await db.tickets.updateOne(
-    { ticket_id: "TKT-001" },
-    { $push: { logs: { message: "Cliente reporta problemas con el banco" } } }
-  );
-
-  const after = await db.tickets.findOne({ ticket_id: "TKT-001" });
-
-  expect(Array.isArray(after.logs)).toBe(true);
-  expect(after.logs.length).toBe(previousLength + 1);
-  expect(after.name).toBe(before.name);
-});
-
-test("should handle ticket not found and network errors", async () => {
-  await expect(addTicketLog("TKT-999", "Prueba"))
-    .rejects.toThrow("Boleto no encontrado");
-
-  jest.spyOn(db.tickets, "updateOne").mockRejectedValue(new Error("ECONNREFUSED"));
-  await expect(addTicketLog("TKT-001", "Prueba"))
-    .rejects.toThrow("Error de red, intente más tarde");
-});
-```
-
------
 
 ## 📊 Backlog  Summary
 
@@ -396,11 +167,6 @@ test("should handle ticket not found and network errors", async () => {
 
 -----
 
-## 🛠️ Tech Stack
-
-![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat-square&logo=node.js&logoColor=white)
-![Jest](https://img.shields.io/badge/Testing-Jest-C21325?style=flat-square&logo=jest&logoColor=white)
 
 -----
 
