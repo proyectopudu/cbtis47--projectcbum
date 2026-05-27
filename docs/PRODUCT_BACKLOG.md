@@ -139,27 +139,6 @@ Feature: Identity Validation at Access Points
     Then the system throws the error "Error de red, intente más tarde"
 ```
 
-#### MongoDB Query
-
-```js
-async function findAttendee(attendee_id) {
-  try {
-    const attendee = await db.asistentes.findOne({ attendee_id });
-
-    if (!attendee) {
-      throw new Error("Boleto no encontrado");
-    }
-
-    return attendee;
-
-  } catch (error) {
-    if (error.message === "Boleto no encontrado") {
-      throw error;
-    }
-    throw new Error("Error de red, intente más tarde");
-  }
-}
-```
 
 #### Unit Test Approach
 
@@ -235,29 +214,7 @@ Feature: Financial Revenue Channel Segmentation
     Then the system throws the error "Error de red, intente más tarde"
 ```
 
-#### MongoDB Query
 
-```js
-async function getBankingTransactions() {
-  try {
-    const results = await db.transactions
-      .find({ method_id: { $in: ["pm1", "pm2"] } })
-      .toArray();
-
-    if (!results.length) {
-      throw new Error("No se encontraron transacciones bancarias");
-    }
-
-    return results;
-
-  } catch (error) {
-    if (error.message === "No se encontraron transacciones bancarias") {
-      throw error;
-    }
-    throw new Error("Error de red, intente más tarde");
-  }
-}
-```
 
 #### Unit Test Approach
 
@@ -324,29 +281,6 @@ Feature: Anomalous Transaction Reporting
     Then the system throws the error "Error de red, intente más tarde"
 ```
 
-#### MongoDB Query
-
-```js
-async function getAnomalousTransactions() {
-  try {
-    const results = await db.transactions
-      .find({ total_amount: { $not: { $eq: 200 } } })
-      .toArray();
-
-    if (!results.length) {
-      throw new Error("No se encontraron transacciones anómalas");
-    }
-
-    return results;
-
-  } catch (error) {
-    if (error.message === "No se encontraron transacciones anómalas") {
-      throw error;
-    }
-    throw new Error("Error de red, intente más tarde");
-  }
-}
-```
 
 #### Unit Test Approach
 
@@ -421,38 +355,6 @@ Feature: Internal Modification History in Tickets
     Then the system throws the error "Error de red, intente más tarde"
 ```
 
-#### MongoDB Query
-
-```js
-async function addTicketLog(ticket_id, message) {
-  try {
-    const result = await db.tickets.updateOne(
-      { ticket_id },
-      {
-        $push: {
-          logs: {
-            message,
-            timestamp: new Date(),
-            author: "support-engineer"
-          }
-        }
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      throw new Error("Boleto no encontrado");
-    }
-
-    return result;
-
-  } catch (error) {
-    if (error.message === "Boleto no encontrado") {
-      throw error;
-    }
-    throw new Error("Error de red, intente más tarde");
-  }
-}
-```
 
 #### Unit Test Approach
 
@@ -505,4 +407,4 @@ test("should handle ticket not found and network errors", async () => {
 
 -----
 
-*Last updated: May 2026*
+
