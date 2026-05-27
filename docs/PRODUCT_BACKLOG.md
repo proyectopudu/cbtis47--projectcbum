@@ -1,4 +1,4 @@
-# 🎟️ Event Ticket System — Product Backlog
+# 🎟️ Event Ticket System — Product Backlog 🎟️
 
 
 -----
@@ -51,8 +51,6 @@ Strict control of ticket inventory and secure access management to prevent overb
 
 ### PBI-02: Search and Identity Validation at Access Points
 
-![Priority](https://img.shields.io/badge/priority-high-orange?style=flat-square)
-![Operator](https://img.shields.io/badge/MongoDB_method-findOne()-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
 #### User Story
 
@@ -73,7 +71,6 @@ Strict control of ticket inventory and secure access management to prevent overb
 
 ## 🧱 Epic 2: Auditing, Reporting, and Financial Security
 
-![Owner](https://img.shields.io/badge/requested_by-Finance_Director_(CFO)-6366f1?style=flat-square)
 
 Advanced comparison and logical operators to ensure full monetary transparency and fraud detection.
 
@@ -81,8 +78,6 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 
 ### PBI-03: Financial Revenue Channel Segmentation
 
-![Priority](https://img.shields.io/badge/priority-high-orange?style=flat-square)
-![Operator](https://img.shields.io/badge/MongoDB_operator-%24in-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
 #### User Story
 
@@ -104,8 +99,6 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 
 ### PBI-04: Isolation and Reporting of Anomalous Transactions
 
-![Priority](https://img.shields.io/badge/priority-critical-red?style=flat-square)
-![Operator](https://img.shields.io/badge/MongoDB_operator-%24not-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
 #### User Story
 
@@ -127,18 +120,14 @@ Advanced comparison and logical operators to ensure full monetary transparency a
 
 -----
 
-## 🧱 Epic 3: Traceability and Data Quality
+##  Epic 3: Traceability and Data Quality
 
-![Owner](https://img.shields.io/badge/requested_by-Repository_Maintenance-6366f1?style=flat-square)
 
 Ensures that documentation, seed data, and history logs maintain a high technical standard within the development environment.
 
 -----
 
 ### PBI-05: Internal Modification History in Tickets
-
-![Priority](https://img.shields.io/badge/priority-medium-yellow?style=flat-square)
-![Operator](https://img.shields.io/badge/MongoDB_operator-%24push-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
 #### User Story
 
@@ -155,7 +144,7 @@ Ensures that documentation, seed data, and history logs maintain a high technica
 |3|Update completes                 |All other fields are inspected                              |No existing user data is overwritten                     |
 
 
-## 📊 Backlog  Summary
+## Backlog  Summary
 
 |PBI   |Epic               |Priority  |MongoDB Operator|Story Points|
 |------|-------------------|----------|----------------|------------|
