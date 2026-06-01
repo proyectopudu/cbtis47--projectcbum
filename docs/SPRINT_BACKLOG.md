@@ -220,25 +220,7 @@
 
 | # | Impediment | Owner |
 |---|------------|-------|
-| 1 | MongoDB Atlas cluster needs write-concern config for atomic `$inc` ops | Backend Dev |
-| 2 | Index strategy for `attendee.uniqueId` must be defined to meet <50ms SLA | Backend Dev |
-| 3 | Standard ticket price (`200`) must be confirmed by PO before US-ETS-02-02 tests | Product Owner |
-| 4 | QA access to staging environment with seed data pending setup | DevOps |
-
----
-
-## ✅ 7. Definition of Done (DoD)
-
-- [ ] Code reviewed and approved via Pull Request (minimum 1 reviewer)
-- [ ] Unit tests written with ≥ 80% coverage on new functionality
-- [ ] MongoDB queries tested in isolation with correct operators (`$inc`, `findOne`, `$in`, `$not/$eq`, `$push`)
-- [ ] API endpoints documented in Swagger / OpenAPI
-- [ ] Feature deployed to staging environment with no critical errors
-- [ ] No critical or blocking bugs open in QA
-- [ ] Acceptance criteria validated by Product Owner
-- [ ] English code comments and README updated where applicable
-
----
+| 1 | MongoDB Atlas cluster needs write-
 
 ## 📊 Backlog Summary
 
