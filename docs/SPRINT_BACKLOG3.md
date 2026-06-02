@@ -10,13 +10,13 @@
 
 ---
 
-## 🎯 Product Goal Reference
+## Product Goal Reference
 
 > </br>Build an online reservation platform for mass ticket sales, capable of processing concurrent transactions with **zero data loss**, guaranteeing **real-time capacity consistency**, and offering advanced financial auditing tools through optimized **NoSQL queries**.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 * [Sprint Goal](#sprint-goal)
 * [Sprint Parameters & Capacity Plan](#sprint-parameters--capacity-plan)
@@ -27,13 +27,13 @@
 
 ---
 
-## 🎯 Sprint Goal
+## Sprint Goal
 
 </br>Al finalizar este sprint, el sistema procesará datos a gran escala mediante pipelines de agregación, **aislará fraudes financieros con lógica booleana avanzada**, inyectará bitácoras de auditoría internas con `$push` y generará reportes analíticos consolidados de rendimiento con `.explain()`.
 
 ---
 
-## 📊 Sprint Parameters & Capacity Plan
+## Sprint Parameters & Capacity Plan
 
 | Parámetro | Valor |
 |-----------|-------|
@@ -90,7 +90,7 @@
 
 ---
 
-## 🚧 Impediments & Dependencies
+## Impediments & Dependencies
 
 | # | Impedimento | Impacto | Dueño | Estado |
 |---|------------|--------|-------|--------|
@@ -98,7 +98,7 @@
 
 ---
 
-## ✅ Definition of Done (DoD)
+## Definition of Done (DoD)
 
 - [ ] Pipelines de agregación probados en Compass y exportados nativamente a Spring Data.
 - [ ] Operador `$push` verificado: los datos históricos se agregan al final del array sin destruir campos existentes.
@@ -106,7 +106,7 @@
 
 ---
 
-## 📈 Backlog Summary
+## Backlog Summary
 
 | User Story | Épica | Prioridad | Operador / Estrategia | Puntos |
 |------------|-------|-----------|------------------------|:------:|
@@ -117,6 +117,3 @@
 | **TOTAL** | | | | **24** |
 
 </br>
-
-📦 *Documentos relacionados:* `PRODUCT_BACKLOG.md`
-</br>*Rama:* `git checkout -b sprint/3-analytics-optimization`
