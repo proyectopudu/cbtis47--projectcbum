@@ -6,7 +6,7 @@
 > </br>**Repositorio:** `cbtis47--projectcbum`
 > </br>**Rama:** `sprint/3-analytics-optimization`
 > </br>**Stack:** Java · Spring Boot · MongoDB · Maven
-> </br>**Duración:** 2 semanas
+> </br>**Duración:** 4 semanas
 
 ---
 
@@ -45,10 +45,10 @@
 
 | Integrante | Rol Temático | Horas |
 |------------|--------------|-------|
-| Juan Pablo Dominguez | The Integration Specialist | 20h |
-| Integrante 2 | The Data Modeler | 20h |
-| Integrante 3 | The Query Developer | 20h |
-| Integrante 4 | The Data Seeder / QA | 20h |
+| Uriel Bian | The Integration Specialist | 20h |
+| Juan Pablo Dominguez | The Data Modeler | 20h |
+| Diana Hernandez | The Query Developer | 20h |
+| Uriel Lopez | Scrum Master | 20h |
 
 ---
 
