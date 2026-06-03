@@ -43,15 +43,15 @@
 
 </br>
 
-### Planificación de Capacidad del Equipo (Carga Horaria Semanal)
-*Nota: La carga horaria se calcula con base en las 8 horas semanales de clase presencial de la materia (Prof. José Sánchez Contreras) más el tiempo estimado de desarrollo autónomo fuera del aula.*
+### Planificación de Capacidad del Equipo (Horas Efectivas Semanales)
+*Nota: Métrica basada en el tiempo real dedicado al desarrollo dentro de las sesiones de clase de la materia (ajustando arranques de sesión y entregas tempranas) más soporte técnico mínimo autónomo.*
 
-| Integrante | Rol Temático | Horas de Clase (Semana) | Horas de Trabajo Extra (Semana) | Total Invertido (Semana) |
-|------------|--------------|:-----------------------:|:------------------------------:|:------------------------:|
-| **Uriel Lopez** | Scrum Master | 8 hrs | 4 hrs | **12 hrs / semana** |
-| **Juan Pablo Dominguez** | The Data Modeler | 8 hrs | 4 hrs | **12 hrs / semana** |
-| **Diana Hernandez** | The Query Developer | 8 hrs | 5 hrs | **13 hrs / semana** |
-| **Uriel Bian** | The Integration Specialist | 8 hrs | 5 hrs | **13 hrs / semana** |
+| Integrante | Rol Temático | Horas Efectivas en Laboratorio (Semana) | Horas de Revisión en Casa (Semana) | Total Real Invertido (Semana) |
+|------------|--------------|:---------------------------------------:|:----------------------------------:|:----------------------------:|
+| **Uriel Lopez** | Scrum Master | 6 hrs | 1 hr | **7 hrs / semana** |
+| **Juan Pablo Dominguez** | The Data Modeler | 5 hrs | 1 hr | **6 hrs / semana** |
+| **Diana Hernandez** | The Query Developer | 6 hrs | 1 hr | **7 hrs / semana** |
+| **Uriel Bian** | The Integration Specialist | 6 hrs | 1 hr | **7 hrs / semana** |
 
 ---
 
@@ -117,7 +117,7 @@
 |---|------------------|--------------|-----------------|
 | 1 | Un boleto específico se encuentra en estado `"PENDIENTE"` y tiene un arreglo llamado `logs` | El ingeniero añade la nota: `"Cliente reporta problemas con su banco al procesar pago"` | El sistema utiliza el operador `$push` para insertar la bitácora directamente en el arreglo interno |
 | 2 | El arreglo de `logs` ya contiene un historial previo de 2 eventos de auditoría | Se inserta la nueva nota técnica en el documento de reservación | La nueva nota se añade estrictamente al **final** de la lista (posición `n+1`) respetando el orden cronológico |
-| 3 | La operation de actualización con `$push` finaliza exitosamente en MongoDB | Se inspecciona visualmente todo el documento modificado | Ningún dato original del cliente (Nombre, ID, Correo, Asiento) fue sobreescrito, mutado o perdido |
+| 3 | La operación de actualización con `$push` finaliza exitosamente en MongoDB | Se inspecciona visualmente todo el documento modificado | Ningún dato original del cliente (Nombre, ID, Correo, Asiento) fue sobreescrito, mutado o perdido |
 
 ---
 
