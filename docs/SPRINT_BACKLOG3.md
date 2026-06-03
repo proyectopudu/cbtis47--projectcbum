@@ -45,10 +45,10 @@
 
 | Integrante | Rol Temático | Horas |
 |------------|--------------|-------|
-| Uriel Bian | The Integration Specialist | 20h |
-| Juan Pablo Dominguez | The Data Modeler | 20h |
-| Diana Hernandez | The Query Developer | 20h |
-| Uriel Lopez | Scrum Master | 20h |
+| Uriel Bian | The Integration Specialist | 10h |
+| Juan Pablo Dominguez | The Data Modeler | 10h |
+| Diana Hernandez | The Query Developer | 12h |
+| Uriel Lopez | Scrum Master | 12h |
 
 ---
 
