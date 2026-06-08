@@ -149,9 +149,9 @@ Para cumplir con el desarrollo inicial del **Sprint 1 (Fundamentos y Modelado)**
 
 ## ✅ Definition of Done (DoD)
 
-- [ ] **[Juan Pablo D.]** Se revisó y aprobó el código de control inicial mediante Pull Requests directos en GitHub, asegurando ramas limpias.
-- [ ] **[Uriel M. / Diana H.]** Se validó el diagrama arquitectónico en Mermaid, confirmando la ausencia de errores de sintaxis y su visualización correcta en la documentación.
-- [ ] **[Uriel L.]** Se ejecutó con éxito el script de inicialización en el clúster distribuido de MongoDB Atlas con la conexión base del backend establecida correctamente.
+* ✔️ **[Juan Pablo D.]** Se revisó y aprobó el código de control inicial mediante Pull Requests directos en GitHub, asegurando ramas limpias.
+* ✔️ **[Uriel M. / Diana H.]** Se validó el diagrama arquitectónico en Mermaid, confirmando la ausencia de errores de sintaxis y su visualización correcta en la documentación.
+* ✔️ **[Uriel L.]** Se ejecutó con éxito el script de inicialización en el clúster distribuido de MongoDB Atlas con la conexión base del backend establecida correctamente.
 
 ---
 
