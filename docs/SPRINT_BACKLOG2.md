@@ -31,7 +31,7 @@ Build an online reservation platform for mass ticket sales, capable of processin
 
 ## 🎯 Sprint Goal
 
-Al finalizar este sprint, el sistema **gestionará de forma atómica el inventario de boletos** previnieningo la sobreventa bajo cargas concurrentes, permitirá verificar asistentes en **menos de 50 ms** mediante índices únicos y contará con un set de datos de prueba realista de más de 50 documentos.
+Al finalizar este sprint, el sistema **gestionará de forma atómica el inventario de boletos** previniendo la sobreventa bajo cargas concurrentes, permitirá verificar asistentes en **menos de 50 ms** mediante índices únicos y contará con un set de datos de prueba realista de más de 50 documentos.
 
 ---
 
@@ -59,23 +59,31 @@ Al finalizar este sprint, el sistema **gestionará de forma atómica el inventar
 
 ## 👥 Asignación de Responsabilidades por Integrante
 
-Para cumplir con el desarrollo integral del **Sprint 2 (Operaciones Atómicas y Consistencia)**, las tareas técnicas se dividieron de forma estratégica entre los miembros del equipo:
+Para cumplir con el desarrollo integral del **Sprint 2 (Operaciones Atómicas y Consistencia)**, las actividades, días de clase y tiempos de desarrollo se dividieron detalladamente entre los miembros del equipo:
 
 ### 📋 Diana Hernandez Antonio (Product Owner & Data Modeler)
-* **Definición de Límites Operativos:** Supervisión de las reglas de negocio críticas asociadas a la capacidad máxima del recinto y las condiciones lógicas para denegar transacciones inválidas.
-* **Modelado para Alta Disponibilidad:** Estructuración del campo de inventario numérico para soportar decrementos en tiempo real e integridad del esquema de datos.
+* **Definición de Límites Operativos de Negocio:** * **Cronograma:** Desarrollado en la **Semana 1 (Lunes de 14:00 a 14:50 en CC2 y Martes de 13:00 a 13:50 en CC3)**.
+  * **Descripción:** Dedicó **2 horas efectivas** en laboratorio a documentar las reglas de negocio críticas para la venta masiva de boletos. Estableció los flujos lógicos para denegar transacciones cuando el inventario llega a cero, previniendo penalizaciones legales por sobreventa.
+* **Modelado de Datos para Alta Disponibilidad:** * **Cronograma:** Desarrollado en la **Semana 1 (Martes de 13:50 a 14:50 en CC3) y Semana 2 (Martes de 13:00 a 14:50 en CC3)**.
+  * **Descripción:** Invirtió **3 horas de clase** reestructurando el esquema documental en Spring Boot. Modificó el campo de inventario numérico para soportar decrementos rápidos y asegurar que no existan conflictos de lectura/escritura concurrentes en la base de datos distribuida.
 
 ### ⚙️ Uriel Lopez Xochiquiquixqui (Scrum Master & Backend Developer)
-* **Gestión de Sprints y Bloqueos:** Coordinación de las tareas del equipo para levantar impedimentos críticos como la configuración del *Write-concern* en el clúster.
-* **Lógica Concurrente en Servidor:** Programación en Java/Spring Boot para asegurar que las operaciones de modificación de boletos se ejecuten de manera limpia en el backend, evitando la sobreventa.
+* **Remoción de Bloqueos en Infraestructura:** * **Cronograma:** Desarrollado en la **Semana 1 (Lunes de 14:00 a 14:50 en CC2)**.
+  * **Descripción:** Dedicó **1 hora de laboratorio** a coordinar la solución de impedimentos técnicos en el clúster compartida, asegurando que las directivas de seguridad permitieran realizar las pruebas de concurrencia masiva con el backend sin caídas de conexión.
+* **Programación Concurrente en Servidor Spring Boot (`US-ETS-02-01`):** * **Cronograma:** Desarrollado entre la **Semana 1 (Jueves de 15:10 a 16:00 en CC2) y Semana 2 (Miércoles de 15:10 a 17:00 en CC3 y Jueves de 18:00 a 19:00 en CC2)**.
+  * **Descripción:** Invirtió **4 horas en laboratorio y 2 horas extras en casa**. Programó los controladores y servicios en Java para recibir las peticiones de compra masiva simultáneas. Integró las respuestas de error personalizadas para rebotar transacciones de clientes una vez que el inventario se agota físicamente en el backend.
 
 ### 🔍 Uriel Martínez Bian (The Query Developer)
-* **Implementación de Consultas Atómicas (`US-ETS-02-01`):** Diseño y prueba del operador `$inc` para actualizar y restar el inventario disponible de asientos de manera segura ante compras masivas simultáneas.
-* **Optimización de Lecturas mediante Índices (`US-ETS-02-02`):** Creación e instalación de índices únicos sobre identificadores claves en la base de datos para asegurar respuestas inmediatas (SLA < 50ms) usando búsquedas directas con `findOne()`.
+* **Implementación de Consultas Atómicas con el Operador `$inc` (`US-ETS-02-01`):** * **Cronograma:** Desarrollado en la **Semana 1 (Martes de 13:00 a 14:50 en CC3 y Jueves de 13:00 a 14:00 en Aula 13)**.
+  * **Descripción:** Invirtió **3 horas efectivas en laboratorio**. Diseñó y testeó el query atómico utilizando el operador numérico `$inc` con valor `-1`. Esto asegura que cada reservación exitosa reste una plaza directamente en el clúster de Atlas de forma aislada y segura, evitando colisiones de datos.
+* **Optimización de Lecturas Mediante Índices Únicos (`US-ETS-02-02`):** * **Cronograma:** Desarrollado en la **Semana 2 (Lunes de 14:00 a 14:50 en CC2 y Miércoles de 15:10 a 17:00 en CC3)**.
+  * **Descripción:** Dedicó **3 horas de laboratorio**. Creó y desplegó un índice único sobre el campo identificador en Atlas. Estructuró las consultas de acceso mediante el método de lectura rápida `findOne()`, logrando reducir los tiempos de respuesta del servidor (SLA) a un umbral menor a los 50 milisegundos para agilizar las filas de entrada al evento.
 
 ### 🛡️ Juan Pablo Dominguez Sarmiento (Support Engineer & QA Assistant)
-* **Generación de Datos de Prueba en Masa (`US-ETS-02-03`):** Desarrollo del archivo de semillas `data/seeds.json`, poblando de manera sintética la base de datos distribuidos con más de 50 documentos con datos sumamente realistas.
-* **Pruebas de Carga y Aseguramiento:** Simulación de hilos concurrentes manuales y verificación del formato de respuesta de los datos de salida para asegurar la calidad de la entrega de cara a la *Definition of Done (DoD)*.
+* **Generación Sintética del Archivo de Semillas JSON (`US-ETS-02-03`):** * **Cronograma:** Desarrollado en la **Semana 1 (Martes de 13:00 a 14:50 en CC3) y Semana 2 (Lunes de 14:00 a 14:50 en CC2)**.
+  * **Descripción:** Dedicó **3 horas efectivas**. Construyó manualmente el script y archivo de inicialización masiva ubicado en `data/seeds.json`, estructurando de forma correcta y realista un volumen de datos superior a 50 documentos con nombres, correos y folios válidos para simular un ambiente transaccional real.
+* **Simulación de Carga Transaccional Concurrente y Aseguramiento:** * **Cronograma:** Desarrollado en la **Semana 2 (Miércoles de 15:10 a 17:00 en CC3 y Jueves de 18:00 a 19:00 en CC2)**.
+  * **Descripción:** Invirtió **3 horas de laboratorio y 2 horas de soporte en casa**. Realizó pruebas de caja negra ejecutando múltiples peticiones de compra simultáneas sobre el operador `$inc` para verificar que el conteo final del inventario fuera exacto y auditó que las respuestas devueltas por `findOne()` mapearan objetos JSON puros `{}` sin errores.
 
 ---
 
@@ -144,9 +152,9 @@ Para cumplir con el desarrollo integral del **Sprint 2 (Operaciones Atómicas y 
 
 ## ✅ Definition of Done (DoD)
 
-- [ ] **[Juan Pablo D.]** Set de datos sintéticos con más de 50 documentos creado y cargado con éxito en el clúster.
-- [ ] **[Uriel M.]** Índice en `uniqueId` establecido y queries optimizados con `findOne()` devolviendo objetos puros `{}`.
-- [ ] **[Uriel L. / Diana H.]** Lógica de control de inventario con el operador `$inc` validada bajo pruebas concurrentes sin pérdida de datos.
+* ✔️ **[Juan Pablo D.]** Se creó y cargó con éxito el set de datos sintéticos con más de 50 documentos realistas en el clúster compartido de Atlas.
+* ✔️ **[Uriel M.]** Se estableció el índice único sobre el identificador clave y se optimizaron las consultas de lectura con `findOne()`, asegurando la devolución de objetos JSON puros `{}`.
+* ✔️ **[Uriel L. / Diana H.]** Se configuró y validó la lógica de control del inventario mediante el operador atómico `$inc`, confirmando la consistencia bajo hilos de ejecución masivos concurrentes.
 
 ---
 
