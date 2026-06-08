@@ -19,13 +19,13 @@ Build an online reservation platform for mass ticket sales, capable of processin
 
 ## 📋 Table of Contents
 
-* [Sprint Goal](#sprint-goal)
-* [Sprint Parameters & Capacity Plan](#sprint-parameters--capacity-plan)
+* [Sprint Goal](#-sprint-goal)
+* [Sprint Parameters & Capacity Plan](#-sprint-parameters--capacity-plan)
 * [Asignación de Responsabilidades por Integrante](#-asignación-de-responsabilidades-por-integrante)
 * [Selected Epics & User Stories](#-selected-epics--user-stories)
-* [Impediments & Dependencies](#impediments--dependencies)
-* [Definition of Done (DoD)](#definition-of-done-dod)
-* [Backlog Summary](#backlog-summary)
+* [Impediments & Dependencies](#-impediments--dependencies)
+* [Definition of Done (DoD)](#-definition-of-done-dod)
+* [Backlog Summary](#-backlog-summary)
 
 ---
 
@@ -59,23 +59,31 @@ Al finalizar este sprint, el equipo habrá configurado el **entorno profesional 
 
 ## 👥 Asignación de Responsabilidades por Integrante
 
-Para cumplir con el desarrollo inicial del **Sprint 1 (Fundamentos y Modelado)**, las tareas se dividieron estratégicamente entre los miembros del equipo:
+Para cumplir con el desarrollo inicial del **Sprint 1 (Fundamentos y Modelado)**, las actividades y tiempos de desarrollo se desglosaron de forma específica por cada miembro durante las dos semanas del ciclo:
 
 ### 📋 Diana Hernandez Antonio (Product Owner & Data Modeler)
-* **Validación de Reglas de Negocio:** Definición de los requerimientos iniciales del sistema de venta de boletos masivos y supervisión del modelado de datos.
-* **Diseño Documental NoSQL:** Modelado conceptual de las colecciones base, estableciendo el criterio de documentos anidados (*embedding*) vs. referencias (*referencing*) para los datos de los usuarios, eventos y reservaciones.
+* **Validación de Reglas de Negocio e Historias de Usuario (`US-ETS-01-01`):** * **Cronograma:** Desarrollado durante la **Semana 1 (Lunes de 14:00 a 14:50 en CC2 y Martes de 13:00 a 14:50 en CC3)**.
+  * **Descripción:** Dedicó **3 horas efectivas** en el laboratorio a redactar el alcance del sistema de venta masiva de boletos, estructurando las restricciones de negocio para evitar pérdida de datos y validando el contenido de las primeras User Stories junto al Scrum Master.
+* **Diseño Documental NoSQL del Esquema (`US-ETS-01-02`):** * **Cronograma:** Desarrollado entre la **Semana 1 (Jueves de 13:00 a 14:00 en Aula 13) y Semana 2 (Martes de 13:00 a 14:50 en CC3)**.
+  * **Descripción:** Invirtió **4 horas efectivas** analizando el comportamiento de lectura/escritura del sistema. Determinó la estructura lógica de las colecciones, decidiendo la aplicación de documentos anidados (*embedding*) para los datos estáticos del evento y el uso de referencias (*referencing*) mediante IDs únicos para conectar usuarios y transacciones de boletos de forma óptima.
 
 ### ⚙️ Uriel Lopez Xochiquiquixqui (Scrum Master & Backend Developer)
-* **Estructuración del Backlog:** Organización de las primeras historias de usuario de configuración del entorno, documentación de criterios iniciales y control del flujo de trabajo ágil.
-* **Inicialización del Entorno de Desarrollo:** Configuración inicial del proyecto base con dependencias de Spring Data MongoDB y Maven para preparar la comunicación de servicios.
+* **Estructuración y Gestión del Product Backlog:** * **Cronograma:** Desarrollado durante la **Semana 1 (Lunes de 14:00 a 14:50 en CC2 y Martes de 13:00 a 14:00 en CC3)**.
+  * **Descripción:** Dedicó **2 horas efectivas** a la creación física del tablero de control, el ordenamiento de prioridades críticas y la redacción formal de los criterios de aceptación en sintaxis estructurada Gherkin para todo el equipo.
+* **Inicialización del Entorno de Desarrollo y Estructura Spring Boot:** * **Cronograma:** Desarrollado durante la **Semana 2 (Miércoles de 15:10 a 17:00 en CC3 y Jueves de 15:10 a 16:00 en CC2)**.
+  * **Descripción:** Invirtió **3 horas de laboratorio y 2 horas de revisión autónoma en casa**. Configuro el proyecto base Maven en el IDE, estructuró la arquitectura de paquetes (controllers, repositories, models) e inyectó las dependencias iniciales de Spring Data MongoDB (`spring-boot-starter-data-mongodb`) necesarias para levantar el backend del servidor.
 
 ### 🔍 Uriel Martínez Bian (The Query Developer)
-* **Diseño Visual e Infraestructura del Esquema:** Traducción del modelo lógico documental a un diagrama técnico representativo mediante código de Mermaid.js.
-* **Validación de Consultas Base:** Preparación de la sintaxis básica requerida para insertar y estructurar los primeros documentos BSON del sistema.
+* **Codificación y Sintaxis del Esquema en Mermaid.js (`US-ETS-01-02`):** * **Cronograma:** Desarrollado durante la **Semana 1 (Martes de 14:00 a 14:50 en CC3 y Jueves de 13:00 a 14:00 en Aula 13)** y continuado en la **Semana 2 (Lunes de 14:00 a 14:50 en CC2)**.
+  * **Descripción:** Invirtió **3 horas efectivas en laboratorio**. Tradujo los requerimientos de modelado a código limpio de Mermaid.js para generar el archivo `docs/schema.mmd`. Diseñó visualmente los bloques de datos, tipos de variables BSON y las conexiones lógicas de las colecciones para que se rendericen nativamente en la documentación de GitHub sin fallas.
+* **Validación de Estructuras de Consultas Documentales Base:** * **Cronograma:** Desarrollado durante la **Semana 2 (Miércoles de 15:10 a 17:00 en CC3)**.
+  * **Descripción:** Dedicó **2 horas efectivas** a realizar pruebas conceptuales de inserción y estructura sintáctica. Validó que los identificadores de los documentos no tuvieran ambigüedades relacionales antes de inicializar la persistencia en la nube.
 
 ### 🛡️ Juan Pablo Dominguez Sarmiento (Support Engineer & QA Assistant)
-* **Gobernanza del Repositorio:** Configuración del archivo de exclusiones `.gitignore`, inicialización del repositorio remoto en GitHub y validación del acuerdo de ética sobre el uso responsable de Inteligencia Artificial.
-* **Despliegue e Integración Inicial:** Configuración y testeo de la cadena de conexión de MongoDB Atlas para garantizar que todos los integrantes tuvieran acceso concurrente al clúster compartido en la nube.
+* **Gobernanza del Repositorio de Git y Acuerdo de Ética en IA (`US-ETS-01-01`):** * **Cronograma:** Desarrollado durante la **Semana 1 (Lunes de 14:00 a 14:50 en CC2 y Martes de 13:00 a 14:00 en CC3)**.
+  * **Descripción:** Dedicó **2 horas efectivas**. Inicializó el repositorio público en GitHub `cbtis47--projectcbum`, configuró las reglas de exclusión en el archivo `.gitignore` para bloquear el rastreo de carpetas basura (`/target`, `.idea`) y coordinó la firma digital del contrato ético de Inteligencia Artificial de los 4 integrantes.
+* **Despliegue de Infraestructura y Conexión Cloud a MongoDB Atlas (`US-ETS-01-03`):** * **Cronograma:** Desarrollado durante la **Semana 2 (Miércoles de 15:10 a 17:00 en CC3 y Jueves de 18:00 a 19:00 en CC2)**.
+  * **Descripción:** Invirtió **3 horas en el laboratorio y 1 hora extra en casa**. Aprovisionó el clúster en la nube, configuró los accesos de red por IP, generó los usuarios de administración distribuidos y validó el script de inicialización `scripts/01_create_collections.js` para asegurar que todo el equipo tuviera acceso concurrente y seguro a la base de datos distribuida.
 
 ---
 
@@ -141,9 +149,9 @@ Para cumplir con el desarrollo inicial del **Sprint 1 (Fundamentos y Modelado)**
 
 ## ✅ Definition of Done (DoD)
 
-- [ ] **[Juan Pablo D.]** Código de control inicial revisado y aprobado mediante Pull Request directo en GitHub.
-- [ ] **[Uriel M. / Diana H.]** Diagrama de Mermaid sin errores de sintaxis y visualizado correctamente en el archivo de documentación.
-- [ ] **[Uriel L.]** Script de inicialización probado y ejecutado con éxito directamente en el clúster de Atlas con conexión backend establecida.
+- [ ] **[Juan Pablo D.]** Se revisó y aprobó el código de control inicial mediante Pull Requests directos en GitHub, asegurando ramas limpias.
+- [ ] **[Uriel M. / Diana H.]** Se validó el diagrama arquitectónico en Mermaid, confirmando la ausencia de errores de sintaxis y su visualización correcta en la documentación.
+- [ ] **[Uriel L.]** Se ejecutó con éxito el script de inicialización en el clúster distribuido de MongoDB Atlas con la conexión base del backend establecida correctamente.
 
 ---
 
@@ -152,7 +160,7 @@ Para cumplir con el desarrollo inicial del **Sprint 1 (Fundamentos y Modelado)**
 | User Story | Épica | Prioridad | Artefacto / Entregable | Responsable Principal | Puntos |
 |------------|-------|-----------|------------------------|-----------------------|:------:|
 | US-ETS-01-01 | Setup & Design | 🔴 Crítica | `README.md` / `Pledge` | Juan Pablo Dominguez | 3 |
-| US-ETS-01-02 | Setup & Design | 🔴 Crítica | `docs/schema.mmd` | Uriel Martínez / Diana H. | 5 |
+| US-ETS-01-02 | Setup & Design | 🔴 Crítica | `docs/schema.mmd` | Diana Hernandez / Uriel M. | 5 |
 | US-ETS-01-03 | Setup & Design | 🟠 Alta | `create_collections.js`| Juan Pablo Dominguez | 3 |
 | **TOTAL** | | | | | **11** |
 
