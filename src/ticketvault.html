@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TicketVault — Eventos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0a; --bg2: #111111; --bg3: #1a1a1a;
+    --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.18);
+    --accent: #e8ff47; --text: #f0f0f0;
+    --muted: #666; --muted2: #999; --success: #4ade80;
+    --danger: #f87171; --warning: #fbbf24;
+    --radius: 12px; --radius-sm: 6px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-weight: 300; line-height: 1.6; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 58px; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--accent); cursor: pointer; }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-btn { background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; color: var(--muted2); padding: 6px 14px; border-radius: var(--radius-sm); transition: color .2s, background .2s; }
+  .nav-btn:hover { color: var(--text); background: var(--bg3); }
+  .nav-btn.primary { background: var(--accent); color: #0a0a0a; font-weight: 500; }
+  .nav-btn.primary:hover { background: #d4eb3a; }
+
+  /* PAGES */
+  .page { display: none; padding-top: 58px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { padding: 5rem 2rem 3rem; max-width: 1100px; margin: 0 auto; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 1rem; color: var(--muted2); max-width: 420px; margin-bottom: 2.5rem; line-height: 1.7; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* BTNS */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s; border: none; text-decoration: none; }
+  .btn-accent { background: var(--accent); color: #0a0a0a; }
+  .btn-accent:hover { background: #d4eb3a; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-hover); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* FILTER */
+  .filter-bar { max-width: 1100px; margin: 0 auto 2rem; padding: 0 2rem; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filter-chip { background: var(--bg2); border: 1px solid var(--border); color: var(--muted2); font-size: 12px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all .15s; }
+  .filter-chip:hover, .filter-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,71,0.06); }
+  .filter-label { font-size: 12px; color: var(--muted); margin-right: 4px; }
+
+  /* GRID */
+  .events-grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+  .event-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s; position: relative; }
+  .event-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .event-card-img { height: 160px; position: relative; overflow: hidden; }
+  .event-card-img-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+  .event-card-body { padding: 1.1rem 1.2rem; }
+  .event-card-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .event-card-title { font-size: 1rem; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+  .event-card-venue { font-size: 12px; color: var(--muted2); margin-bottom: 12px; }
+  .event-card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border); }
+  .event-card-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); }
+  .event-card-price small { color: var(--muted); font-size: 10px; display: block; }
+  .event-card-date { font-size: 12px; color: var(--muted2); text-align: right; }
+  .event-card-badge { position: absolute; top: 10px; right: 10px; background: rgba(10,10,10,0.85); backdrop-filter: blur(6px); font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--border); }
+  .badge-agotado { color: var(--danger); border-color: rgba(248,113,113,0.3); }
+  .badge-pocas { color: var(--warning); border-color: rgba(251,191,36,0.3); }
+  .badge-disponible { color: var(--success); border-color: rgba(74,222,128,0.3); }
+
+  /* DETAIL */
+  .detail-back { display: inline-flex; align-items: center; gap: 6px; padding: 1.5rem 2rem 0; font-size: 13px; color: var(--muted2); cursor: pointer; transition: color .2s; background: none; border: none; font-family: 'DM Sans', sans-serif; }
+  .detail-back:hover { color: var(--text); }
+  .detail-hero { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 2rem; display: grid; grid-template-columns: 1fr 380px; gap: 3rem; align-items: start; }
+  .detail-img { height: 320px; border-radius: var(--radius); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 8rem; border: 1px solid var(--border); }
+  .detail-cat { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; margin-top: 1.5rem; }
+  .detail-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1rem; }
+  .detail-meta { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.5rem; }
+  .detail-meta-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted2); }
+  .detail-meta-row strong { color: var(--text); font-weight: 400; }
+  .detail-desc { font-size: 14px; color: var(--muted2); line-height: 1.75; }
+
+  /* BOOKING */
+  .booking-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; position: sticky; top: 74px; }
+  .booking-panel h3 { font-size: 13px; font-weight: 500; margin-bottom: 1rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+  .zone-option { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 8px; cursor: pointer; transition: all .15s; }
+  .zone-option:hover { border-color: var(--border-hover); }
+  .zone-option.selected { border-color: var(--accent); background: rgba(232,255,71,0.04); }
+  .zone-option.agotada { opacity: 0.45; cursor: not-allowed; }
+  .zone-option-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .zone-name { font-size: 14px; font-weight: 500; }
+  .zone-price { font-family: 'DM Mono', monospace; font-size: 15px; color: var(--accent); }
+  .zone-bar-wrap { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
+  .zone-bar { height: 100%; border-radius: 2px; background: var(--accent); transition: width .5s ease; }
+  .zone-bar.pocas { background: var(--warning); }
+  .zone-bar.agotada-bar { background: var(--danger); }
+  .zone-cupo { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .qty-row { display: flex; align-items: center; justify-content: space-between; margin: 1.2rem 0; }
+  .qty-label { font-size: 13px; color: var(--muted2); }
+  .qty-ctrl { display: flex; align-items: center; gap: 12px; }
+  .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border-hover); background: none; color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; line-height: 1; }
+  .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .qty-val { font-family: 'DM Mono', monospace; font-size: 18px; min-width: 24px; text-align: center; }
+  .booking-total { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-top: 1px solid var(--border); margin-bottom: 1rem; }
+  .total-label { font-size: 12px; color: var(--muted2); }
+  .total-val { font-family: 'DM Mono', monospace; font-size: 1.3rem; color: var(--accent); }
+  .booking-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 10px; }
+
+  /* CHECKOUT */
+  .checkout-wrap { max-width: 680px; margin: 0 auto; padding: 2rem; }
+  .checkout-steps { display: flex; gap: 0; margin-bottom: 2.5rem; align-items: center; }
+  .step { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 11px; flex-shrink: 0; transition: all .2s; }
+  .step.done .step-num { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+  .step.active .step-num { border-color: var(--accent); color: var(--accent); }
+  .step.active { color: var(--text); }
+  .step-line { flex: 1; height: 1px; background: var(--border); margin: 0 8px; }
+  .checkout-section { margin-bottom: 1.5rem; }
+  .checkout-section h3 { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; color: var(--muted2); margin-bottom: 6px; }
+  .field input, .field select { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; transition: border-color .15s; outline: none; }
+  .field input:focus, .field select:focus { border-color: var(--accent); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .checkout-summary { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; margin-bottom: 1.5rem; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .summary-row:last-child { border-bottom: none; padding-top: 10px; font-weight: 500; }
+  .summary-row .lbl { color: var(--muted2); }
+  .summary-row .val { font-family: 'DM Mono', monospace; }
+  .summary-row.total .val { color: var(--accent); font-size: 15px; }
+  .card-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .card-icon { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 18px; cursor: pointer; transition: border-color .15s; }
+  .card-icon.active { border-color: var(--accent); }
+
+  /* TICKETS */
+  .tickets-wrap { max-width: 760px; margin: 0 auto; padding: 2rem; }
+  .tickets-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+  .tickets-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: 0.02em; }
+  .ticket-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; display: flex; transition: border-color .2s; }
+  .ticket-card:hover { border-color: var(--border-hover); }
+  .ticket-stub { width: 90px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; border-right: 1px dashed var(--border); position: relative; }
+  .ticket-stub::before, .ticket-stub::after { content: ''; position: absolute; width: 16px; height: 16px; background: var(--bg); border-radius: 50%; right: -8px; }
+  .ticket-stub::before { top: -8px; }
+  .ticket-stub::after { bottom: -8px; }
+  .ticket-info { padding: 1.2rem 1.4rem; flex: 1; }
+  .ticket-code { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .ticket-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .ticket-meta { font-size: 12px; color: var(--muted2); }
+  .ticket-right { padding: 1.2rem; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; border-left: 1px solid var(--border); min-width: 110px; }
+  .ticket-status { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.05em; }
+  .status-confirmada { background: rgba(74,222,128,0.1); color: var(--success); }
+  .status-usada { background: rgba(102,102,102,0.15); color: var(--muted); }
+  .ticket-price { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--accent); }
+  .ticket-zone { font-size: 11px; color: var(--muted2); font-family: 'DM Mono', monospace; }
+
+  /* ADMIN */
+  .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+  .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+  .admin-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: 0.02em; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+  .metric-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; }
+  .metric-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .metric-val { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.02em; line-height: 1; }
+  .metric-val.accent { color: var(--accent); }
+  .metric-val.success { color: var(--success); }
+  .metric-val.warning { color: var(--warning); }
+  .metric-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .admin-table-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .admin-table-header { padding: 1rem 1.4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+  .admin-table-header h3 { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { border-bottom: 1px solid var(--border); }
+  th { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; font-weight: 400; }
+  td { padding: 12px 14px; color: var(--muted2); border-bottom: 1px solid var(--border); }
+  td:first-child { color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* VALIDATOR */
+  .validator-wrap { max-width: 460px; margin: 0 auto; padding: 2rem; text-align: center; }
+  .scanner-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; margin-bottom: 1.5rem; }
+  .scanner-frame { width: 200px; height: 200px; margin: 0 auto 1.5rem; border-radius: var(--radius); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
+  .scanner-line { position: absolute; left: 10%; right: 10%; height: 2px; background: var(--accent); opacity: 0.7; animation: scan 2s ease-in-out infinite; }
+  @keyframes scan { 0% { top: 10%; } 50% { top: 85%; } 100% { top: 10%; } }
+  .scanner-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+  .code-input-wrap { display: flex; gap: 8px; }
+  .code-input { flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 14px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; outline: none; transition: border-color .15s; }
+  .code-input:focus { border-color: var(--accent); }
+  .validate-result { border-radius: var(--radius); padding: 1.4rem; margin-bottom: 1rem; text-align: left; border: 1px solid; }
+  .result-valid { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.3); }
+  .result-invalid { background: rgba(248,113,113,0.07); border-color: rgba(248,113,113,0.3); }
+  .result-used { background: rgba(251,191,36,0.07); border-color: rgba(251,191,36,0.3); }
+  .result-icon { font-size: 2rem; margin-bottom: 8px; }
+  .result-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .result-detail { font-size: 13px; color: var(--muted2); }
+
+  /* CONFIRM */
+  .confirm-wrap { max-width: 520px; margin: 0 auto; padding: 3rem 2rem; text-align: center; }
+  .confirm-icon { font-size: 4rem; margin-bottom: 1rem; }
+  .confirm-wrap h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.02em; margin-bottom: 0.5rem; }
+  .confirm-wrap p { font-size: 14px; color: var(--muted2); margin-bottom: 2rem; }
+  .confirm-ticket { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted2); text-align: left; margin-bottom: 1.5rem; }
+  .confirm-code { font-size: 1.1rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 12px; display: block; }
+  .confirm-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .confirm-row:last-child { border-bottom: none; }
+  .confirm-row .lbl { color: var(--muted); }
+
+  /* TOAST */
+  .toast-wrap { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999; display: flex; flex-direction: column; gap: 8px; }
+  .toast { background: var(--bg3); border: 1px solid var(--border-hover); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; color: var(--text); animation: slideIn .25s ease; max-width: 320px; }
+  .toast.success { border-color: rgba(74,222,128,0.4); }
+  .toast.error { border-color: rgba(248,113,113,0.4); }
+  @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+  /* UTILS */
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+  .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+  .empty-state p { font-size: 14px; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+  @media (max-width: 720px) {
+    .detail-hero { grid-template-columns: 1fr; }
+    .booking-panel { position: static; }
+    .nav-links .nav-btn:not(.primary) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">TICKETVAULT</div>
+  <div class="nav-links">
+    <button class="nav-btn" onclick="showPage('tickets')">Mis boletos</button>
+    <button class="nav-btn" onclick="showPage('admin')">Admin</button>
+    <button class="nav-btn" onclick="showPage('validator')">Validador</button>
+    <button class="nav-btn primary" onclick="showPage('home')">Explorar</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">Sistema de reservas</div>
+    <h1>VIVE<br/>LOS <span>MEJORES</span><br/>EVENTOS</h1>
+    <p class="hero-sub">Reserva tu lugar en conciertos, festivales y experiencias. Acceso rápido, boleto digital seguro.</p>
+    <div class="hero-actions">
+      <button class="btn btn-accent" onclick="document.getElementById('events-section').scrollIntoView({behavior:'smooth'})">Ver eventos</button>
+      <button class="btn btn-outline" onclick="showPage('tickets')">Mis boletos</button>
+    </div>
+  </div>
+  <div class="filter-bar" id="events-section">
+    <span class="filter-label">Filtrar:</span>
+    <button class="filter-chip active" onclick="filterEvents('todos',this)">Todos</button>
+    <button class="filter-chip" onclick="filterEvents('concierto',this)">Conciertos</button>
+    <button class="filter-chip" onclick="filterEvents('festival',this)">Festivales</button>
+    <button class="filter-chip" onclick="filterEvents('teatro',this)">Teatro</button>
+  </div>
+  <div class="events-grid" id="events-grid"></div>
+</div>
+
+<!-- DETAIL -->
+<div class="page" id="page-detail">
+  <button class="detail-back" onclick="showPage('home')">← Volver a eventos</button>
+  <div class="detail-hero">
+    <div>
+      <div class="detail-img" id="detail-img">🎵</div>
+      <div class="detail-cat" id="detail-cat"></div>
+      <div class="detail-title" id="detail-title"></div>
+      <div class="detail-meta" id="detail-meta"></div>
+      <div class="detail-desc" id="detail-desc"></div>
+    </div>
+    <div>
+      <div class="booking-panel">
+        <h3>Selecciona tu zona</h3>
+        <div id="zones-list"></div>
+        <div class="qty-row">
+          <span class="qty-label">Cantidad de boletos</span>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <span class="qty-val" id="qty-val">1</span>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+        <div class="booking-total">
+          <div class="total-label">Total a pagar</div>
+          <div class="total-val" id="total-val">$0</div>
+        </div>
+        <button class="btn btn-accent" style="width:100%;justify-content:center" onclick="goToCheckout()">Reservar ahora</button>
+        <p class="booking-note">Pago seguro · Boleto digital inmediato</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="page" id="page-checkout">
+  <div class="checkout-wrap">
+    <button class="detail-back" style="padding:0;margin-bottom:2rem" onclick="showPage('detail')">← Volver</button>
+    <div class="checkout-steps">
+      <div class="step done"><span class="step-num">✓</span>&nbsp;Zona</div>
+      <div class="step-line"></div>
+      <div class="step active"><span class="step-num">2</span>&nbsp;Datos</div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-num">3</span>&nbsp;Pago</div>
+    </div>
+    <div class="checkout-summary" id="checkout-summary"></div>
+    <div class="checkout-section">
+      <h3>Datos del comprador</h3>
+      <div class="field"><label>Nombre completo</label><input type="text" id="buyer-name" placeholder="Ana García"/></div>
+      <div class="field"><label>Email</label><input type="email" id="buyer-email" placeholder="ana@correo.com"/></div>
+      <div class="field"><label>Teléfono</label><input type="tel" id="buyer-phone" placeholder="+52 55 0000 0000"/></div>
+    </div>
+    <div class="checkout-section">
+      <h3>Método de pago</h3>
+      <div class="card-row">
+        <div class="card-icon active" onclick="selectCard(this)">💳</div>
+        <div class="card-icon" onclick="selectCard(this)">📱</div>
+        <div class="card-icon" onclick="selectCard(this)">🏦</div>
+      </div>
+      <div class="field"><label>Número de tarjeta</label><input type="text" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)"/></div>
+      <div class="field-row">
+        <div class="field"><label>Vencimiento</label><input type="text" placeholder="MM/AA" maxlength="5"/></div>
+        <div class="field"><label>CVV</label><input type="text" placeholder="123" maxlength="3"/></div>
+      </div>
+    </div>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:14px" onclick="processPayment()">Confirmar y pagar</button>
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div class="page" id="page-confirm">
+  <div class="confirm-wrap">
+    <div class="confirm-icon">🎟️</div>
+    <h2>¡RESERVA CONFIRMADA!</h2>
+    <p>Tu boleto digital fue generado. Guarda tu código de acceso.</p>
+    <div class="confirm-ticket" id="confirm-ticket"></div>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;margin-bottom:10px" onclick="showPage('tickets')">Ver mis boletos</button>
+    <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="showPage('home')">Explorar más eventos</button>
+  </div>
+</div>
+
+<!-- MY TICKETS -->
+<div class="page" id="page-tickets">
+  <div class="tickets-wrap">
+    <div class="tickets-header">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Mi cuenta</div>
+        <h2>MIS BOLETOS</h2>
+      </div>
+      <button class="btn btn-outline" onclick="showPage('home')">+ Comprar boleto</button>
+    </div>
+    <div id="tickets-list"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Panel de control</div>
+        <h2>DASHBOARD ADMIN</h2>
+      </div>
+      <button class="btn btn-accent" onclick="toast('Próximamente: crear eventos','')">+ Nuevo evento</button>
+    </div>
+    <div class="metrics-grid" id="admin-metrics"></div>
+    <div class="admin-table-wrap">
+      <div class="admin-table-header">
+        <h3>Reservas recientes</h3>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px" onclick="exportarCSV()">Exportar CSV</button>
+      </div>
+      <table>
+        <thead><tr><th>Código</th><th>Comprador</th><th>Evento</th><th>Zona</th><th>Monto</th><th>Estado</th></tr></thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- VALIDATOR -->
+<div class="page" id="page-validator">
+  <div class="validator-wrap">
+    <div style="margin-bottom:1.5rem">
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Acceso al evento</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.02em">VALIDADOR QR</div>
+    </div>
+    <div class="scanner-box">
+      <div class="scanner-label">Área de escaneo QR</div>
+      <div class="scanner-frame">
+        <div class="scanner-line"></div>
+        <span style="font-size:3rem;position:relative;z-index:1">⬛</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:1rem">O ingresa el código manualmente:</p>
+      <div class="code-input-wrap">
+        <input class="code-input" id="code-input" placeholder="EVT-2025-XXXXX" maxlength="18"/>
+        <button class="btn btn-accent" onclick="validateTicket()">Validar</button>
+      </div>
+    </div>
+    <div id="validation-result"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script>
+// ── Estado global (sin servidor, todo en memoria) ──
+let EVENTS = [];
+let MY_TICKETS = [];
+let currentEvent = null;
+let selectedZone = null;
+let qty = 1;
+
+// ── Datos de eventos ───────────────────────────────
+const EVENTOS_DATA = [
+  { id:'ev1', nombre:'Coldplay World Tour', venue:'Foro Sol, CDMX', fecha:'15 Mar 2025', hora:'20:00', categoria:'concierto', desc:'El espectáculo visual más impresionante de la última década. Luces, confeti y canciones que marcan generaciones.', bg:'#1a0a2e', emoji:'🎵', zonas:[
+    { id:'vip', nombre:'VIP Golden', precio:3500, cupo_total:150, cupo_disponible:12 },
+    { id:'plata', nombre:'Plata', precio:1800, cupo_total:800, cupo_disponible:340 },
+    { id:'general', nombre:'General', precio:900, cupo_total:4000, cupo_disponible:2100 }
+  ]},
+  { id:'ev2', nombre:'Festival Alive 2025', venue:'Parque Bicentenario, CDMX', fecha:'22 Mar 2025', hora:'14:00', categoria:'festival', desc:'12 horas de música en vivo con más de 30 artistas en 3 escenarios simultáneos.', bg:'#0a1a0a', emoji:'🎪', zonas:[
+    { id:'vip', nombre:'VIP Experience', precio:2800, cupo_total:200, cupo_disponible:0 },
+    { id:'general', nombre:'General', precio:650, cupo_total:10000, cupo_disponible:7800 }
+  ]},
+  { id:'ev3', nombre:'Bad Bunny: Nadie Sabe', venue:'Estadio BBVA, MTY', fecha:'5 Abr 2025', hora:'21:00', categoria:'concierto', desc:'El conejo más esperado regresa con su gira más ambiciosa. Producción de primer nivel mundial.', bg:'#1a0a0a', emoji:'🐰', zonas:[
+    { id:'campo', nombre:'Campo VIP', precio:4200, cupo_total:500, cupo_disponible:88 },
+    { id:'preferente', nombre:'Preferente', precio:2200, cupo_total:1500, cupo_disponible:620 },
+    { id:'general', nombre:'General', precio:1100, cupo_total:6000, cupo_disponible:3400 }
+  ]},
+  { id:'ev4', nombre:'Hamlet — Teatro UNAM', venue:'Teatro Juan Ruiz de Alarcón', fecha:'10 Abr 2025', hora:'19:30', categoria:'teatro', desc:'Producción contemporánea del clásico de Shakespeare. Dirección vanguardista con elenco de primer nivel.', bg:'#0a0a1a', emoji:'🎭', zonas:[
+    { id:'palco', nombre:'Palco', precio:950, cupo_total:80, cupo_disponible:24 },
+    { id:'luneta', nombre:'Luneta', precio:550, cupo_total:300, cupo_disponible:180 },
+    { id:'galeria', nombre:'Galería', precio:280, cupo_total:200, cupo_disponible:145 }
+  ]},
+  { id:'ev5', nombre:'Electronic Pulse', venue:'Club 33, CDMX', fecha:'19 Abr 2025', hora:'23:00', categoria:'festival', desc:'Noche de música electrónica con los mejores DJs del circuito internacional. Sistema Funktion-One.', bg:'#001a1a', emoji:'🎧', zonas:[
+    { id:'vip', nombre:'VIP Booth', precio:1500, cupo_total:60, cupo_disponible:8 },
+    { id:'general', nombre:'General', precio:450, cupo_total:800, cupo_disponible:310 }
+  ]},
+  { id:'ev6', nombre:'Rosalía: Motomami Live', venue:'Palacio de los Deportes', fecha:'3 May 2025', hora:'20:00', categoria:'concierto', desc:'La artista española más influyente del momento. Flamenco y trap fundidos en un show único.', bg:'#1a0015', emoji:'🌹', zonas:[
+    { id:'vip', nombre:'VIP Floor', precio:3800, cupo_total:300, cupo_disponible:156 },
+    { id:'general', nombre:'General', precio:1200, cupo_total:5000, cupo_disponible:4100 }
+  ]},
+  { id:'ev7', nombre:'Metallica: M72 World Tour', venue:'Estadio Azteca, CDMX', fecha:'17 May 2025', hora:'19:00', categoria:'concierto', desc:'La banda de metal más grande del mundo regresa con su producción más brutal. Dos tarimas, cero teloneros.', bg:'#0d0d0d', emoji:'🤘', zonas:[
+    { id:'field', nombre:'Field VIP', precio:5500, cupo_total:400, cupo_disponible:42 },
+    { id:'gold', nombre:'Gold Circle', precio:3200, cupo_total:1200, cupo_disponible:880 },
+    { id:'general', nombre:'General', precio:1400, cupo_total:8000, cupo_disponible:5600 }
+  ]},
+  { id:'ev8', nombre:'Noche de Flamenco', venue:'Teatro Metropolitan, CDMX', fecha:'24 May 2025', hora:'20:30', categoria:'teatro', desc:'Una experiencia íntima con los mejores bailaores y cantaores de España. Pasión pura en cada tabla.', bg:'#1a0800', emoji:'💃', zonas:[
+    { id:'vip', nombre:'Primera fila', precio:1800, cupo_total:40, cupo_disponible:6 },
+    { id:'preferente', nombre:'Preferente', precio:950, cupo_total:150, cupo_disponible:98 },
+    { id:'general', nombre:'General', precio:450, cupo_total:400, cupo_disponible:287 }
+  ]},
+  { id:'ev9', nombre:'Coachella CDMX Edition', venue:'Autodromo Hermanos Rodriguez', fecha:'7 Jun 2025', hora:'13:00', categoria:'festival', desc:'El festival más icónico del mundo llega a México. Arte, música y experiencias que definen una generación.', bg:'#0a1520', emoji:'🌵', zonas:[
+    { id:'vip', nombre:'VIP Weekend', precio:8500, cupo_total:500, cupo_disponible:0 },
+    { id:'plus', nombre:'General Plus', precio:3200, cupo_total:2000, cupo_disponible:760 },
+    { id:'general', nombre:'General', precio:1800, cupo_total:15000, cupo_disponible:9400 }
+  ]}
+];
+
+// ── Init ───────────────────────────────────────────
+function init() {
+  EVENTS = EVENTOS_DATA;
+  renderEvents('todos');
+}
+
+// ── Navegación ─────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'tickets') renderTickets();
+  if (name === 'admin') renderAdmin();
+  if (name === 'validator') resetValidator();
+}
+
+// ── Render eventos ─────────────────────────────────
+function renderEvents(cat) {
+  const grid = document.getElementById('events-grid');
+  const list = cat === 'todos' ? EVENTS : EVENTS.filter(e => e.categoria === cat);
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">🎵</div><p>No hay eventos en esta categoría.</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(ev => {
+    const min = Math.min(...ev.zonas.map(z => z.precio));
+    const disp = ev.zonas.reduce((a, z) => a + z.cupo_disponible, 0);
+    const total = ev.zonas.reduce((a, z) => a + z.cupo_total, 0);
+    const pct = disp / total;
+    let bc = 'badge-disponible', bt = 'Disponible';
+    if (disp === 0) { bc = 'badge-agotado'; bt = 'Agotado'; }
+    else if (pct < 0.1) { bc = 'badge-pocas'; bt = 'Pocas entradas'; }
+    return `<div class="event-card" onclick="openEvent('${ev.id}')">
+      <div class="event-card-img"><div class="event-card-img-bg" style="background:${ev.bg}">${ev.emoji}</div></div>
+      <div class="event-card-badge ${bc}">${bt}</div>
+      <div class="event-card-body">
+        <div class="event-card-cat">${ev.categoria}</div>
+        <div class="event-card-title">${ev.nombre}</div>
+        <div class="event-card-venue">${ev.venue}</div>
+        <div class="event-card-footer">
+          <div class="event-card-price"><small>Desde</small>$${min.toLocaleString()}</div>
+          <div class="event-card-date">${ev.fecha}<br/>${ev.hora} hrs</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterEvents(cat, btn) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderEvents(cat);
+}
+
+// ── Detalle evento ─────────────────────────────────
+function openEvent(id) {
+  currentEvent = EVENTS.find(e => e.id === id);
+  if (!currentEvent) return;
+  selectedZone = null; qty = 1;
+  const img = document.getElementById('detail-img');
+  img.style.background = currentEvent.bg;
+  img.textContent = currentEvent.emoji;
+  document.getElementById('detail-cat').textContent = currentEvent.categoria;
+  document.getElementById('detail-title').textContent = currentEvent.nombre;
+  document.getElementById('detail-meta').innerHTML = `
+    <div class="detail-meta-row"><span>📅</span><strong>${currentEvent.fecha}</strong></div>
+    <div class="detail-meta-row"><span>🕐</span><strong>${currentEvent.hora} hrs</strong></div>
+    <div class="detail-meta-row"><span>📍</span><strong>${currentEvent.venue}</strong></div>`;
+  document.getElementById('detail-desc').textContent = currentEvent.desc;
+  document.getElementById('qty-val').textContent = '1';
+  renderZones();
+  updateTotal();
+  showPage('detail');
+}
+
+function renderZones() {
+  document.getElementById('zones-list').innerHTML = currentEvent.zonas.map(z => {
+    const pct = z.cupo_disponible / z.cupo_total;
+    const agotada = z.cupo_disponible === 0;
+    let barClass = '';
+    const cupoText = agotada ? 'Agotada' : pct < 0.1 ? `${z.cupo_disponible} restantes` : `${z.cupo_disponible.toLocaleString()} disponibles`;
+    if (agotada) barClass = 'agotada-bar'; else if (pct < 0.1) barClass = 'pocas';
+    return `<div class="zone-option${agotada ? ' agotada' : ''}" id="zone-${z.id}" onclick="${agotada ? '' : `selectZone('${z.id}')`}">
+      <div class="zone-option-header">
+        <span class="zone-name">${z.nombre}</span>
+        <span class="zone-price">$${z.precio.toLocaleString()}</span>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar ${barClass}" style="width:${Math.round(pct * 100)}%"></div></div>
+      <div class="zone-cupo">${cupoText}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectZone(zid) {
+  selectedZone = currentEvent.zonas.find(z => z.id === zid);
+  document.querySelectorAll('.zone-option').forEach(el => el.classList.remove('selected'));
+  document.getElementById('zone-' + zid).classList.add('selected');
+  updateTotal();
+}
+
+function changeQty(d) {
+  qty = Math.max(1, Math.min(qty + d, 8));
+  document.getElementById('qty-val').textContent = qty;
+  updateTotal();
+}
+
+function updateTotal() {
+  const total = selectedZone ? selectedZone.precio * qty : 0;
+  document.getElementById('total-val').textContent = total ? '$' + total.toLocaleString() : '$0';
+}
+
+// ── Checkout ───────────────────────────────────────
+function goToCheckout() {
+  if (!selectedZone) { toast('Selecciona una zona primero', 'error'); return; }
+  document.getElementById('checkout-summary').innerHTML = `
+    <div class="summary-row"><span class="lbl">Evento</span><span class="val">${currentEvent.nombre}</span></div>
+    <div class="summary-row"><span class="lbl">Zona</span><span class="val">${selectedZone.nombre}</span></div>
+    <div class="summary-row"><span class="lbl">Cantidad</span><span class="val">${qty} boleto${qty > 1 ? 's' : ''}</span></div>
+    <div class="summary-row"><span class="lbl">Precio unitario</span><span class="val">$${selectedZone.precio.toLocaleString()}</span></div>
+    <div class="summary-row total"><span class="lbl">Total</span><span class="val">$${(selectedZone.precio * qty).toLocaleString()}</span></div>`;
+  showPage('checkout');
+}
+
+function selectCard(el) {
+  document.querySelectorAll('.card-icon').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function formatCard(input) {
+  let v = input.value.replace(/\D/g, '');
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function processPayment() {
+  const name = document.getElementById('buyer-name').value.trim();
+  const email = document.getElementById('buyer-email').value.trim();
+  if (!name || !email) { toast('Completa nombre y email', 'error'); return; }
+
+  const code = 'EVT-2025-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+  const boleto = {
+    codigo: code,
+    evento: currentEvent.nombre,
+    venue: currentEvent.venue,
+    fecha: currentEvent.fecha,
+    hora: currentEvent.hora,
+    zona: selectedZone.nombre,
+    precio: selectedZone.precio * qty,
+    qty: qty,
+    emoji: currentEvent.emoji,
+    estado: 'confirmada',
+    comprador: name
+  };
+  MY_TICKETS.unshift(boleto);
+
+  document.getElementById('confirm-ticket').innerHTML = `
+    <span class="confirm-code">${code}</span>
+    <div class="confirm-row"><span class="lbl">Evento</span><span>${currentEvent.nombre}</span></div>
+    <div class="confirm-row"><span class="lbl">Fecha</span><span>${currentEvent.fecha} · ${currentEvent.hora}</span></div>
+    <div class="confirm-row"><span class="lbl">Lugar</span><span>${currentEvent.venue}</span></div>
+    <div class="confirm-row"><span class="lbl">Zona</span><span>${selectedZone.nombre}</span></div>
+    <div class="confirm-row"><span class="lbl">Boletos</span><span>${qty}</span></div>
+    <div class="confirm-row"><span class="lbl">Comprador</span><span>${name}</span></div>
+    <div class="confirm-row"><span class="lbl">Total</span><span style="color:var(--accent)">$${(selectedZone.precio * qty).toLocaleString()}</span></div>`;
+
+  toast('¡Boleto confirmado!', 'success');
+  showPage('confirm');
+}
+
+// ── Mis boletos ────────────────────────────────────
+function renderTickets() {
+  const list = document.getElementById('tickets-list');
+  if (!MY_TICKETS.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">🎟️</div><p>Aún no tienes boletos. ¡Explora eventos!</p></div>';
+    return;
+  }
+  list.innerHTML = MY_TICKETS.map(t => `
+    <div class="ticket-card">
+      <div class="ticket-stub" style="background:var(--bg3)">${t.emoji}</div>
+      <div class="ticket-info">
+        <div class="ticket-code">${t.codigo}</div>
+        <div class="ticket-title">${t.evento}</div>
+        <div class="ticket-meta">${t.fecha} · ${t.venue}</div>
+      </div>
+      <div class="ticket-right">
+        <span class="ticket-status status-${t.estado}">${t.estado}</span>
+        <div>
+          <div class="ticket-zone">${t.zona}</div>
+          <div class="ticket-price">$${t.precio.toLocaleString()}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── Admin ──────────────────────────────────────────
+function renderAdmin() {
+  const total = MY_TICKETS.reduce((a, t) => a + (t.precio || 0), 0);
+  const confirmados = MY_TICKETS.filter(t => t.estado === 'confirmada').length;
+  document.getElementById('admin-metrics').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Ingresos totales</div><div class="metric-val accent">$${total.toLocaleString()}</div><div class="metric-sub">MXN acumulado</div></div>
+    <div class="metric-card"><div class="metric-label">Boletos vendidos</div><div class="metric-val success">${MY_TICKETS.length}</div><div class="metric-sub">${confirmados} confirmados</div></div>
+    <div class="metric-card"><div class="metric-label">Eventos activos</div><div class="metric-val">${EVENTS.length}</div><div class="metric-sub">En la plataforma</div></div>
+    <div class="metric-card"><div class="metric-label">Ocupación media</div><div class="metric-val warning">68%</div><div class="metric-sub">Todas las zonas</div></div>`;
+
+  document.getElementById('admin-tbody').innerHTML = MY_TICKETS.length
+    ? MY_TICKETS.map(t => `<tr>
+        <td style="font-family:'DM Mono',monospace;font-size:11px">${t.codigo}</td>
+        <td>${t.comprador}</td>
+        <td>${t.evento}</td>
+        <td>${t.zona}</td>
+        <td style="font-family:'DM Mono',monospace">$${t.precio.toLocaleString()}</td>
+        <td style="color:var(--success);font-family:'DM Mono',monospace;font-size:11px">${t.estado}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:2rem">No hay reservas aún</td></tr>';
+}
+
+function exportarCSV() {
+  if (!MY_TICKETS.length) { toast('No hay datos para exportar', 'error'); return; }
+  const csv = ['Código,Comprador,Evento,Zona,Monto,Estado',
+    ...MY_TICKETS.map(t => `${t.codigo},${t.comprador},${t.evento},${t.zona},$${t.precio},${t.estado}`)
+  ].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'reservas.csv';
+  a.click();
+}
+
+// ── Validador ──────────────────────────────────────
+function resetValidator() {
+  document.getElementById('code-input').value = '';
+  document.getElementById('validation-result').innerHTML = '';
+}
+
+function validateTicket() {
+  const code = document.getElementById('code-input').value.toUpperCase().trim();
+  if (!code) return;
+  const found = MY_TICKETS.find(b => b.codigo === code);
+  let html = '';
+  if (!found) {
+    html = `<div class="validate-result result-invalid"><div class="result-icon">✗</div><div class="result-title" style="color:var(--danger)">Código no válido</div><div class="result-detail">El código "${code}" no existe.</div></div>`;
+  } else if (found.estado === 'usada') {
+    html = `<div class="validate-result result-used"><div class="result-icon">⚠</div><div class="result-title" style="color:var(--warning)">Boleto ya utilizado</div><div class="result-detail">${found.evento}<br/>${found.zona} · ${found.fecha}</div></div>`;
+  } else {
+    found.estado = 'usada';
+    html = `<div class="validate-result result-valid"><div class="result-icon">✓</div><div class="result-title" style="color:var(--success)">Acceso autorizado</div><div class="result-detail">${found.evento}<br/>${found.zona} · ${found.fecha}<br/><strong style="color:var(--text)">${found.venue}</strong></div></div>`;
+    toast('Boleto validado exitosamente', 'success');
+  }
+  document.getElementById('validation-result').innerHTML = html;
+}
+
+// ── Toast ──────────────────────────────────────────
+function toast(msg, type = '') {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ── Arrancar ───────────────────────────────────────
+init();
+</script>
+</body>
+</html>
