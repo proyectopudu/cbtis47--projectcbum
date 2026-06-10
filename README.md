@@ -6,6 +6,21 @@
 
 ### *Massive Sales Platform — MongoDB NoSQL & Spring Boot Edition*
 
+---
+
+## 📺 <span style="color:#ff0000">Video del Sistema</span>
+
+Para comprender a detalle la arquitectura NoSQL del festival y ver las pruebas de integridad de datos en Compass, visualiza nuestra presentación oficial:
+
+<p align="center">
+  <a href="https://goo.su/04DaIZ" target="_blank">
+    <img src="https://img.shields.io/badge/REPRODUCIR_VIDEO-PROYECTO_MQL-black?style=for-the-badge&logo=youtube&logoColor=red" alt="Play Video">
+  </a>
+</p>
+
+---
+
+
 <br/>
 
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB%20Atlas-000000?style=for-the-badge&logo=mongodb&logoColor=47A248)
